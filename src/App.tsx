@@ -1,8 +1,7 @@
-
 import { createContext, useState } from "react";
-import './App.css'
-import MonthAndYear from './components/MonthAndYear';
-import DaysContainer from './containers/DaysContainer';
+import "./App.css";
+import MonthAndYear from "./components/MonthAndYear/MonthAndYear";
+import DaysContainer from "./containers/DaysContainer";
 export const DateContext = createContext<any>(null);
 
 function App() {
@@ -11,7 +10,7 @@ function App() {
   const year = currentDate.getFullYear();
   const [date, setDate] = useState(currentDate);
   const [monthAndYear, setMonthAndYear] = useState(`${month} ${year} `);
-  
+
   return (
     <DateContext.Provider
       value={{ date, monthAndYear, setDate, setMonthAndYear }}
@@ -20,7 +19,6 @@ function App() {
       <DaysContainer />
     </DateContext.Provider>
   );
-  
 }
 
-export default App
+export default App;
