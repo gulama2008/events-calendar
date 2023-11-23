@@ -1,9 +1,9 @@
 import { useContext } from "react";
-import { DateContext } from "../../App";
+import { CalendarContext } from "../../context/CalendarContextProvider";
 
 const MonthAndYear = () => {
   const { date, setDate, monthAndYear, setMonthAndYear } =
-    useContext(DateContext);
+    useContext(CalendarContext);
   const handlePrevious = () => {
     const newDate = new Date(date.setMonth(date.getMonth() - 1));
     setDate(new Date(newDate));
