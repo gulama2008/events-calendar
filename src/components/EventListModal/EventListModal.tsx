@@ -1,7 +1,8 @@
+import styles from "./EventListModal.module.scss";
 
 const EventListModal = () => {
   return (
-    <div>EventListModal</div>
+    <div className={styles.container}>EventListModal</div>
   )
 }
 

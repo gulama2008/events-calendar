@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import Day from "../components/Day/Day";
 import styles from "./DaysContainer.module.scss";
 import { CalendarContext } from "../context/CalendarContextProvider";
@@ -12,24 +12,35 @@ const DaysContainer = () => {
     daysArrayForNextMonth,
     dayNames,
   } = useContext(CalendarContext);
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [modalClass, setModalClass] = useState<string>();
+  useEffect(() => {
+    if (showModal) {
+      setModalClass(styles.show_modal);
+    } else { 
+      setModalClass(styles.modal);
+    }
+  }, [showModal]);
 
   return (
-    <div>
-      <div className={styles.container}>
+    <div className={styles.container}>
+      <div className={styles.calendar_container}>
         {dayNames.map((name: string) => {
           return <div className={styles.days}>{name}</div>;
         })}
         {daysArrayForPreviousMonth.map((e: number) => {
-          return <DayFromOtherMonth day={e} key={e} />;
+          return (
+            <DayFromOtherMonth day={e} key={e} setShowModal={setShowModal} />
+          );
         })}
         {daysArray.map((e: number) => {
-          return <Day day={e} key={e} />;
+          return <Day day={e} key={e} setShowModal={setShowModal} />;
         })}
         {daysArrayForNextMonth.map((e: number) => {
-          return <DayFromOtherMonth day={e} key={e} />;
+          return <DayFromOtherMonth day={e} key={e} setShowModal={ setShowModal} />;
         })}
       </div>
-      <div >
+      <div  className={modalClass}>
         <EventListModal />
       </div>
     </div>

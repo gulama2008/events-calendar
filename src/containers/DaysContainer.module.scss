@@ -1,12 +1,35 @@
-.container{
-    display: flex;
-    width: 1000px;
-    flex-wrap: wrap;
+.container {
+  position: relative;
 }
 
-.days{
-    width: 142px;
-    height: 30px;
-    color: #a7a7a4;
-    font-weight: 500;
+.calendar_container {
+  display: flex;
+  width: 1000px;
+  flex-wrap: wrap;
+}
+
+.days {
+  width: 142px;
+  height: 30px;
+  color: #a7a7a4;
+  font-weight: 500;
+}
+
+.modal {
+  display: none;
+}
+
+.show_modal {
+  display: flex;
+
+  width: 400px;
+  height: 500px;
+  background-color: gray;
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
 }
