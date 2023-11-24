@@ -65,7 +65,8 @@ const CalendarContextProvider = ({ children }: any) => {
         daysArrayForPreviousMonth,
         daysArrayForNextMonth,
         setDate,
-        setMonthAndYear,
+              setMonthAndYear,
+        dayNames
       }}
     >
       {children}

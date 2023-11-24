@@ -1,6 +1,8 @@
 import { useContext } from "react";
 import { CalendarContext } from "../../context/CalendarContextProvider";
-
+import styles from "./MonthAndYear.module.scss";
+import previous from "../../assets/arrow-left-icon.png";
+import next from "../../assets/arrow-right-icon.png";
 const MonthAndYear = () => {
   const { date, setDate, monthAndYear, setMonthAndYear } =
     useContext(CalendarContext);
@@ -21,10 +23,10 @@ const MonthAndYear = () => {
   };
 
   return (
-    <div>
-      <button onClick={handlePrevious}>previous</button>
-      <div>{monthAndYear}</div>
-      <button onClick={handleNext}>next</button>
+    <div className={styles.container}>
+      <img src={previous} onClick={handlePrevious} className={styles.arrow} />
+      <div className={styles.text}>{monthAndYear}</div>
+      <img src={next} onClick={handleNext} className={styles.arrow} />
     </div>
   );
 };

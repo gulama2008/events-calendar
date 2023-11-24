@@ -19,7 +19,7 @@ export const calculateNumOfDaysForPreviousMonth = (date: Date): number => {
 export const generateDaysArray = (num: number): number[] => {
   if (num === 0) {
     return [];
-   }
+  }
   const daysArray = [];
   for (let i = 1; i <= num; i++) {
     daysArray.push(i);
@@ -41,19 +41,6 @@ export const generateDaysArrayForPreviousMonth = (
   return daysArray;
 };
 
-// export const generateDaysArrayForNextMonth = (
-//   numOfDays: number
-// ): number[] => {
-//   const daysArray = [];
-//   if (numOfDays === 0) {
-//     return [];
-//   }
-//   for (let i = 1; i<=numOfDays; i++) {
-//     daysArray.push(i);
-//   }
-//   return daysArray;
-// };
-
 export const getFirstDayOfMonth = (date: Date): number => {
   const firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDay();
   return firstDay;
@@ -67,4 +54,23 @@ export const getLastDayOfMonth = (date: Date): number => {
     lastDateOfMonth
   ).getDay();
   return lastDay;
+};
+
+export const getIndexOfWeek = (date: Date, day: number): number => {
+  const indexOfWeek = new Date(
+    date.getFullYear(),
+    date.getMonth(),
+    day
+  ).getDay();
+  return indexOfWeek;
+};
+
+export const getIndexOfWeekForOtherMonth = (date: Date, day: number): number => {
+  
+  const indexOfWeek = new Date(
+    date.getFullYear(),
+    day>7?date.getMonth()-1:date.getMonth()+1,
+    day
+  ).getDay();
+  return indexOfWeek;
 };
