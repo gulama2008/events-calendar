@@ -11,20 +11,24 @@ const DaysContainer = () => {
     daysArrayForPreviousMonth,
     daysArrayForNextMonth,
     dayNames,
+    showModal,
+    setShowModal
   } = useContext(CalendarContext);
-  const [showModal, setShowModal] = useState<boolean>(false);
+  const [calendarContainerClass, setCalendarContainerClass] = useState<string>();
   const [modalClass, setModalClass] = useState<string>();
   useEffect(() => {
     if (showModal) {
       setModalClass(styles.show_modal);
+      setCalendarContainerClass(styles.calendar_container_opacity);
     } else { 
       setModalClass(styles.modal);
+      setCalendarContainerClass(styles.calendar_container);
     }
   }, [showModal]);
 
   return (
     <div className={styles.container}>
-      <div className={styles.calendar_container}>
+      <div className={calendarContainerClass}>
         {dayNames.map((name: string) => {
           return <div className={styles.days}>{name}</div>;
         })}

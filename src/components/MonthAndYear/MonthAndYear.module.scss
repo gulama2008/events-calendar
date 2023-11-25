@@ -5,6 +5,14 @@
     gap: 10px;
 }
 
+.container_opacity{
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 10px;
+    opacity: 0.3;
+}
+
 .text{
     font-weight: 600;
 }

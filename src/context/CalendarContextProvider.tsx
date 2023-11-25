@@ -33,6 +33,9 @@ const CalendarContextProvider = ({ children }: any) => {
   const [lastDay, setLastDay] = useState<number>(0);
   const [firstDayName, setFirstDayName] = useState<string>("");
 
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [modalClass, setModalClass] = useState<string>();
+
   const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   useEffect(() => {
@@ -65,8 +68,10 @@ const CalendarContextProvider = ({ children }: any) => {
         daysArrayForPreviousMonth,
         daysArrayForNextMonth,
         setDate,
-              setMonthAndYear,
-        dayNames
+        setMonthAndYear,
+        dayNames,
+        showModal,
+        setShowModal
       }}
     >
       {children}

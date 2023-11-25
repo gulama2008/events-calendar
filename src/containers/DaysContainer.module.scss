@@ -8,6 +8,13 @@
   flex-wrap: wrap;
 }
 
+.calendar_container_opacity {
+  display: flex;
+  width: 1000px;
+  flex-wrap: wrap;
+  opacity: 0.3;
+}
+
 .days {
   width: 142px;
   height: 30px;
