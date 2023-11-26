@@ -80,6 +80,9 @@ const CalendarContextProvider = ({ children }: any) => {
         numOfDaysForPreviousMonth,
         currentEventList,
         setCurrentEventList,
+        firstDay,
+        lastDay,
+        firstDayName
       }}
     >
       {children}

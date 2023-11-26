@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { CalendarContext, Event } from "../../context/CalendarContextProvider";
+import { CalendarContext } from "../../context/CalendarContextProvider";
 import styles from "./EventList.module.scss";
 import EventDetail from "../EventDetail/EventDetail";
 
