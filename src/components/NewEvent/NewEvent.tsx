@@ -1,9 +1,10 @@
 import { useContext, useState } from "react";
 import { CalendarContext, Event } from "../../context/CalendarContextProvider";
 import { saveEventsToLocalStorage } from "../../services/utils";
+import styles from "./NewEvent.module.scss"
 
 const NewEvent = () => {
-  const { date, events, setEvents } = useContext(CalendarContext);
+  const { date, events, setEvents,setCurrentEventList } = useContext(CalendarContext);
   const [eventTitle, setEventTitle] = useState<string>("");
   const handleEventTitleChange = (e: any) => {
     setEventTitle(e.target.value);
@@ -13,34 +14,38 @@ const NewEvent = () => {
     let newEvents = [];
     const event = events.find((e: Event) => e.date == date);
     if (!event) {
-      newEvents = [...events, { date: date.toString(), event: [eventTitle] }];
+        newEvents = [...events, { date: date.toString(), event: [eventTitle] }];
+        setCurrentEventList({ date: date.toString(), event: [eventTitle] });
     } else {
       newEvents = events.map((e: Event) => {
         if (e.date == date) {
-          e.event.push(eventTitle);
+            e.event.push(eventTitle);
+            setCurrentEventList(e);
           return e;
         } else {
           return e;
         }
       });
     }
-      console.log(newEvents);
+      setEvents(newEvents);
+      saveEventsToLocalStorage(newEvents);
+      setEventTitle("");
       
-    setEvents(newEvents);
-    saveEventsToLocalStorage(newEvents);
   };
 
   return (
-    <div>
-      <form action="">
+    <div className={styles.container}>
+      <form action="" className={styles.form}>
         <input
           type="text"
           placeholder="Event title"
           value={eventTitle}
           onChange={handleEventTitleChange}
+          className={styles.input}
         />
-        <button onClick={handleSaveEvent}>Save</button>
-        <button>Cancel</button>
+        <div>
+          <button onClick={handleSaveEvent} className={styles.btn}>Save</button>
+        </div>
       </form>
     </div>
   );

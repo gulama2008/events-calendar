@@ -1,13 +1,19 @@
-import { useContext } from "react";
-import { CalendarContext } from "../../context/CalendarContextProvider";
+import { useContext, useEffect } from "react";
+import { CalendarContext, Event } from "../../context/CalendarContextProvider";
+import styles from "./EventList.module.scss";
+import EventDetail from "../EventDetail/EventDetail";
 
 const EventList = () => {
   const { currentEventList } = useContext(CalendarContext);
+  useEffect(() => {
+    console.log(currentEventList);
+  }, [currentEventList]);
+
   return (
-    <div>
+    <div className={styles.container}>
       {currentEventList &&
-        currentEventList.event.map((e: string) => {
-          return <div >{e}</div>;
+        currentEventList.event.map((e: string, index: number) => {
+          return <EventDetail e={e} key={index} index={index } />;
         })}
     </div>
   );

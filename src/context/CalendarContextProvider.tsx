@@ -11,7 +11,7 @@ import {
 
 export const CalendarContext = createContext<any>(null);
 export interface Event {
-  date: string
+  date: string;
   event: string[];
 }
 const CalendarContextProvider = ({ children }: any) => {
@@ -60,7 +60,6 @@ const CalendarContextProvider = ({ children }: any) => {
     const daysArrayForNextMonth = generateDaysArray(6 - lastDay);
     setDaysArrayForNextMonth(daysArrayForNextMonth);
   }, [date]);
-console.log(events);
 
   return (
     <CalendarContext.Provider

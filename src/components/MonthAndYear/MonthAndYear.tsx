@@ -4,14 +4,8 @@ import styles from "./MonthAndYear.module.scss";
 import previous from "../../assets/arrow-left-icon.png";
 import next from "../../assets/arrow-right-icon.png";
 const MonthAndYear = () => {
-  const {
-    date,
-    setDate,
-    monthAndYear,
-    setMonthAndYear,
-    showModal,
-    setShowModal,
-  } = useContext(CalendarContext);
+  const { date, setDate, monthAndYear, setMonthAndYear, showModal } =
+    useContext(CalendarContext);
   const [containerClass, setContainerClass] = useState<string>();
   useEffect(() => {
     if (showModal) {
