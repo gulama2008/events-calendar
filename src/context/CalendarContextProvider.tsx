@@ -4,12 +4,17 @@ import {
   calculateNumOfDaysForPreviousMonth,
   generateDaysArray,
   generateDaysArrayForPreviousMonth,
+  getEventsFromLocalStorage,
   getFirstDayOfMonth,
   getLastDayOfMonth,
 } from "../services/utils";
 
 export const CalendarContext = createContext<any>(null);
-
+export interface Event {
+  date: string
+  // time: string;
+  event: string[];
+}
 const CalendarContextProvider = ({ children }: any) => {
   const currentDate = new Date();
   const month = currentDate.toLocaleString("default", { month: "long" });
@@ -19,8 +24,6 @@ const CalendarContextProvider = ({ children }: any) => {
   const [numOfDaysForCurrentMonth, setNumOfDaysForCurrentMonth] =
     useState<number>(0);
   const [numOfDaysForPreviousMonth, setNumOfDaysForPreviousMonth] =
-    useState<number>(0);
-  const [numOfDaysForNextMonthOnCalendar, setNumOfDaysForNextMonthOnCalendar] =
     useState<number>(0);
   const [daysArray, setDaysArray] = useState<number[]>([]);
   const [daysArrayForPreviousMonth, setDaysArrayForPreviousMonth] = useState<
@@ -32,10 +35,9 @@ const CalendarContextProvider = ({ children }: any) => {
   const [firstDay, setFirstDay] = useState<number>(0);
   const [lastDay, setLastDay] = useState<number>(0);
   const [firstDayName, setFirstDayName] = useState<string>("");
-
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [modalClass, setModalClass] = useState<string>();
-
+  const currentEvents = getEventsFromLocalStorage();
+  const [events, setEvents] = useState<Event[]>(currentEvents);
   const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   useEffect(() => {
@@ -58,6 +60,7 @@ const CalendarContextProvider = ({ children }: any) => {
     const daysArrayForNextMonth = generateDaysArray(6 - lastDay);
     setDaysArrayForNextMonth(daysArrayForNextMonth);
   }, [date]);
+console.log(events);
 
   return (
     <CalendarContext.Provider
@@ -71,7 +74,9 @@ const CalendarContextProvider = ({ children }: any) => {
         setMonthAndYear,
         dayNames,
         showModal,
-        setShowModal
+        setShowModal,
+        events,
+        setEvents,
       }}
     >
       {children}

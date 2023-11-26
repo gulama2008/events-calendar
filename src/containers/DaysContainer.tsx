@@ -3,7 +3,7 @@ import Day from "../components/Day/Day";
 import styles from "./DaysContainer.module.scss";
 import { CalendarContext } from "../context/CalendarContextProvider";
 import DayFromOtherMonth from "../components/DayFromOtherMonth/DayFromOtherMonth";
-import EventListModal from "../components/EventListModal/EventListModal";
+import EventModal from "../components/EventModal/EventModal";
 
 const DaysContainer = () => {
   const {
@@ -12,7 +12,7 @@ const DaysContainer = () => {
     daysArrayForNextMonth,
     dayNames,
     showModal,
-    setShowModal
+    // setShowModal,
   } = useContext(CalendarContext);
   const [calendarContainerClass, setCalendarContainerClass] = useState<string>();
   const [modalClass, setModalClass] = useState<string>();
@@ -34,18 +34,18 @@ const DaysContainer = () => {
         })}
         {daysArrayForPreviousMonth.map((e: number) => {
           return (
-            <DayFromOtherMonth day={e} key={e} setShowModal={setShowModal} />
+            <DayFromOtherMonth day={e} key={e} />
           );
         })}
         {daysArray.map((e: number) => {
-          return <Day day={e} key={e} setShowModal={setShowModal} />;
+          return <Day day={e} key={e}  />;
         })}
         {daysArrayForNextMonth.map((e: number) => {
-          return <DayFromOtherMonth day={e} key={e} setShowModal={ setShowModal} />;
+          return <DayFromOtherMonth day={e} key={e}  />;
         })}
       </div>
       <div  className={modalClass}>
-        <EventListModal />
+        <EventModal />
       </div>
     </div>
   );

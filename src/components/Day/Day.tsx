@@ -1,26 +1,28 @@
 import { useContext } from "react";
 import styles from "./Day.module.scss";
 import { CalendarContext } from "../../context/CalendarContextProvider";
-import { getIndexOfWeek } from "../../services/utils";
-import EventListModal from "../EventListModal/EventListModal";
+import { getDate, getIndexOfWeek } from "../../services/utils";
 export interface DayProps {
   day: number;
-  setShowModal: (data: boolean) => unknown;
 }
 
-const Day = ({ day, setShowModal }: DayProps) => {
-  const { date } = useContext(CalendarContext);
+const Day = ({ day }: DayProps) => {
+  const { date,setDate,setShowModal } = useContext(CalendarContext);
   let containerClasses = styles.container;
   if (getIndexOfWeek(date, day) === 0 || getIndexOfWeek(date, day) === 6) {
     containerClasses += ` ${styles.weekend}`;
   }
 
-  const handleShowModal = () => {
+  const handleClick = () => {
+    const newDate = getDate(date, day);
+    console.log(newDate);
+    
+    setDate(newDate);
     setShowModal(true);
   };
 
   return (
-    <div onClick={handleShowModal}>
+    <div onClick={handleClick}>
       <div className={containerClasses}>{day}</div>
     </div>
   );

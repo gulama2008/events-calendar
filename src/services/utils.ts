@@ -1,3 +1,8 @@
+import { Event } from "../context/CalendarContextProvider";
+export interface StringifiedDateEvent{ 
+  date: string,
+  event:string[]
+}
 export const calculateNumOfDaysForCurrentMonth = (date: Date): number => {
   const currentNumOfDays = new Date(
     date.getFullYear(),
@@ -65,12 +70,43 @@ export const getIndexOfWeek = (date: Date, day: number): number => {
   return indexOfWeek;
 };
 
-export const getIndexOfWeekForOtherMonth = (date: Date, day: number): number => {
-  
+export const getIndexOfWeekForOtherMonth = (
+  date: Date,
+  day: number
+): number => {
   const indexOfWeek = new Date(
     date.getFullYear(),
-    day>7?date.getMonth()-1:date.getMonth()+1,
+    day > 7 ? date.getMonth() - 1 : date.getMonth() + 1,
     day
   ).getDay();
   return indexOfWeek;
 };
+
+export const getDate = (date: Date, day: number) => {
+  console.log(day);
+  
+  const newDate = new Date(date.getFullYear(), date.getMonth(), day);
+  console.log(newDate);
+  
+  return newDate;
+};
+
+export const saveEventsToLocalStorage = (events: Event[]) => { 
+  console.log(events);
+  const newEvents: StringifiedDateEvent[] = events.map((e: Event) => { return { date: e.date.toString(),event:e.event } })
+  console.log(newEvents);
+  const eventsStr = JSON.stringify(newEvents);
+  console.log(eventsStr);
+  console.log(JSON.parse(eventsStr));
+  
+  
+  window.localStorage.setItem("events", eventsStr);
+}
+
+export const getEventsFromLocalStorage = ():Event[] => { 
+  const eventsStr = window.localStorage.getItem("events");
+  if (eventsStr) { 
+    return JSON.parse(eventsStr)
+  }
+  return [];
+}
