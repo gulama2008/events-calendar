@@ -12,7 +12,6 @@ import {
 export const CalendarContext = createContext<any>(null);
 export interface Event {
   date: string
-  // time: string;
   event: string[];
 }
 const CalendarContextProvider = ({ children }: any) => {
@@ -38,6 +37,7 @@ const CalendarContextProvider = ({ children }: any) => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const currentEvents = getEventsFromLocalStorage();
   const [events, setEvents] = useState<Event[]>(currentEvents);
+  const [currentEventList, setCurrentEventList] = useState<Event>();
   const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   useEffect(() => {
@@ -77,6 +77,10 @@ console.log(events);
         setShowModal,
         events,
         setEvents,
+        numOfDaysForCurrentMonth,
+        numOfDaysForPreviousMonth,
+        currentEventList,
+        setCurrentEventList,
       }}
     >
       {children}

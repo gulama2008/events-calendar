@@ -5,24 +5,15 @@ import { saveEventsToLocalStorage } from "../../services/utils";
 const NewEvent = () => {
   const { date, events, setEvents } = useContext(CalendarContext);
   const [eventTitle, setEventTitle] = useState<string>("");
-  console.log(date);
-  console.log(events);
-
   const handleEventTitleChange = (e: any) => {
     setEventTitle(e.target.value);
   };
   const handleSaveEvent = (e: any) => {
-      e.preventDefault();
-      console.log(events);
-      
+    e.preventDefault();
     let newEvents = [];
-      const event = events.find((e: Event) => e.date == date);
-      console.log(event);
-      
+    const event = events.find((e: Event) => e.date == date);
     if (!event) {
-        newEvents = [...events, { date: date.toString(), event: [eventTitle] }];
-        console.log(newEvents);
-        
+      newEvents = [...events, { date: date.toString(), event: [eventTitle] }];
     } else {
       newEvents = events.map((e: Event) => {
         if (e.date == date) {
@@ -33,8 +24,8 @@ const NewEvent = () => {
         }
       });
     }
-    console.log(newEvents);
-
+      console.log(newEvents);
+      
     setEvents(newEvents);
     saveEventsToLocalStorage(newEvents);
   };

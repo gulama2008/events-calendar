@@ -14,7 +14,15 @@ const DayFromOtherMonth = ({ day }: DayProps) => {
     containerClasses += ` ${styles.weekend}`;
   }
 
-  return <div className={containerClasses}>{day}</div>;
+  return (
+    <div className={containerClasses}>
+      <div className={styles.day}>{day}</div>
+      {/* {eventsForCurrentDate &&
+        eventsForCurrentDate.event.map((e: string) => {
+          return <div className={styles.event}>{e}</div>;
+        })} */}
+    </div>
+  );
 };
 
 export default DayFromOtherMonth;
