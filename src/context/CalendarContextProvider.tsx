@@ -10,9 +10,19 @@ import {
 } from "../services/utils";
 
 export const CalendarContext = createContext<any>(null);
+
+export interface EventDetails {
+  eventName: string;
+  startDate: string;
+  startTime: string;
+  endDate: string;
+  endTime: string;
+  location: string;
+  label: string[];
+}
 export interface Event {
   date: string;
-  event: string[];
+  event: EventDetails[];
 }
 const CalendarContextProvider = ({ children }: any) => {
   const currentDate = new Date();
@@ -35,6 +45,9 @@ const CalendarContextProvider = ({ children }: any) => {
   const [lastDay, setLastDay] = useState<number>(0);
   const [firstDayName, setFirstDayName] = useState<string>("");
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [showEventListContainer, setShowEventListContainer]=useState(true);
+  const [showNewEventModal, setShowNewEventModal] = useState<boolean>(false);
+  const [showEventDetailsModal, setShowEventDetailsModal] = useState<boolean>(false);
   const currentEvents = getEventsFromLocalStorage();
   const [events, setEvents] = useState<Event[]>(currentEvents);
   const [currentEventList, setCurrentEventList] = useState<Event>();
@@ -82,7 +95,13 @@ const CalendarContextProvider = ({ children }: any) => {
         setCurrentEventList,
         firstDay,
         lastDay,
-        firstDayName
+        firstDayName,
+        showNewEventModal,
+        setShowNewEventModal,
+        showEventDetailsModal,
+        setShowEventDetailsModal,
+        showEventListContainer,
+        setShowEventListContainer,
       }}
     >
       {children}
