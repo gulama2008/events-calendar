@@ -18,11 +18,18 @@ export interface EventDetails {
   endDate: string;
   endTime: string;
   location: string;
-  label: string[];
+  label: string;
 }
 export interface Event {
-  date: string;
-  event: EventDetails[];
+  // date: string;
+  // event: EventDetails[];
+  eventName: string;
+  startDate: string;
+  startTime: string;
+  endDate: string;
+  endTime: string;
+  location: string;
+  label: string;
 }
 const CalendarContextProvider = ({ children }: any) => {
   const currentDate = new Date();
@@ -45,12 +52,15 @@ const CalendarContextProvider = ({ children }: any) => {
   const [lastDay, setLastDay] = useState<number>(0);
   const [firstDayName, setFirstDayName] = useState<string>("");
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [showEventListContainer, setShowEventListContainer]=useState(true);
+  const [showEventListContainer, setShowEventListContainer] = useState(false);
   const [showNewEventModal, setShowNewEventModal] = useState<boolean>(false);
-  const [showEventDetailsModal, setShowEventDetailsModal] = useState<boolean>(false);
+  const [showEventDetailsModal, setShowEventDetailsModal] =
+    useState<boolean>(false);
   const currentEvents = getEventsFromLocalStorage();
+  // const [events, setEvents] = useState<Event[]>(currentEvents);
   const [events, setEvents] = useState<Event[]>(currentEvents);
-  const [currentEventList, setCurrentEventList] = useState<Event>();
+  const [currentEventList, setCurrentEventList] = useState<Event[]>();
+  const [currentEvent, setCurrentEvent] = useState<Event>();
   const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   useEffect(() => {
@@ -102,6 +112,8 @@ const CalendarContextProvider = ({ children }: any) => {
         setShowEventDetailsModal,
         showEventListContainer,
         setShowEventListContainer,
+        setCurrentEvent,
+        currentEvent
       }}
     >
       {children}

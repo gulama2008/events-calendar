@@ -1,6 +1,7 @@
 import { useContext, useEffect } from "react";
-import { CalendarContext } from "../../context/CalendarContextProvider";
+import { CalendarContext, Event } from "../../context/CalendarContextProvider";
 import styles from "./EventList.module.scss";
+import EventDetails from "../EventDetails/EventDetails";
 import EventDetail from "../EventDetail/EventDetail";
 
 const EventList = () => {
@@ -12,8 +13,11 @@ const EventList = () => {
   return (
     <div className={styles.container}>
       {currentEventList &&
-        currentEventList.event.map((e: string, index: number) => {
-          return <EventDetail e={e} key={index} index={index } />;
+        currentEventList.map((e:Event, index: number) => {
+          // return <EventDetails e={e} key={index} index={index } />;
+          return (
+            <EventDetail e={e} index={index}/>
+          )
         })}
     </div>
   );

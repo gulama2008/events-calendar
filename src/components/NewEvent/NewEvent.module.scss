@@ -19,3 +19,23 @@
     border: none;
     color: white;
 }
+
+.modal {
+  display: none;
+}
+
+.show_modal {
+  display: flex;
+  border-radius: 5px;
+  width: 400px;
+  height: 500px;
+  background-color: white;
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}

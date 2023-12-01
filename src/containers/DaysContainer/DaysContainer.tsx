@@ -1,18 +1,23 @@
 import { useContext, useEffect, useState } from "react";
 import Day from "../../components/Day/Day";
 import styles from "./DaysContainer.module.scss";
-import { CalendarContext } from "../../context/CalendarContextProvider";
+import { CalendarContext, Event } from "../../context/CalendarContextProvider";
 import DayFromOtherMonth from "../../components/DayFromOtherMonth/DayFromOtherMonth";
 import EventModal from "../../components/EventModal/EventModal";
 import NewEvent from "../../components/NewEvent/NewEvent";
+import { checkIfInDateRange } from "../../services/utils";
 
 const DaysContainer = () => {
   const {
+    date,
+    events,
     daysArray,
     daysArrayForPreviousMonth,
     daysArrayForNextMonth,
     dayNames,
     showModal,
+    currentEventList,
+    setShowEventListContainer,
     // setShowModal,
   } = useContext(CalendarContext);
   const [calendarContainerClass, setCalendarContainerClass] =
@@ -20,6 +25,8 @@ const DaysContainer = () => {
   const [modalClass, setModalClass] = useState<string>();
   useEffect(() => {
     if (showModal) {
+      console.log(currentEventList);
+      setShowEventListContainer(true);
       setModalClass(styles.show_modal);
       setCalendarContainerClass(styles.calendar_container_opacity);
     } else {

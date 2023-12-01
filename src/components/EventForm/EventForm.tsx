@@ -2,14 +2,12 @@ import styles from "./EventForm.module.scss";
 export interface EventFormProps {
   register: any;
   errors: any;
-  // formSubmit: (data: any) => any;
+  formSubmit: (data: any) => any;
   handleSubmit: (formSubmit: any) => any;
   // handleCancel: () => any;
 }
-const EventForm = ({ register, errors, handleSubmit }: EventFormProps) => {
-  const formSubmit = () => {
-    console.log("form has been submitted");
-  };
+const EventForm = ({ register, errors, handleSubmit,formSubmit }: EventFormProps) => {
+  
   return (
     <form onSubmit={handleSubmit(formSubmit)} className={styles.form}>
       <div>
@@ -29,7 +27,7 @@ const EventForm = ({ register, errors, handleSubmit }: EventFormProps) => {
           Start Date:
         </label>
         <input
-          type="text"
+          type="date"
           {...register("startDate")}
           // className={styles.input}
         />
@@ -41,7 +39,7 @@ const EventForm = ({ register, errors, handleSubmit }: EventFormProps) => {
         </label>
         <input
           type="text"
-          {...register("startDate")}
+          {...register("startTime")}
           // className={styles.input}
         />
         {errors.startDate && <span>This field is required</span>}
@@ -51,7 +49,7 @@ const EventForm = ({ register, errors, handleSubmit }: EventFormProps) => {
           End Date:
         </label>
         <input
-          type="text"
+          type="date"
           {...register("endDate")}
           // className={styles.input}
         />

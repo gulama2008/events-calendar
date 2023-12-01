@@ -88,10 +88,12 @@ export const getDate = (date: Date, day: number) => {
 };
 
 export const saveEventsToLocalStorage = (events: Event[]) => {
-  const newEvents: StringifiedDateEvent[] = events.map((e: Event) => {
-    return { date: e.date.toString(), event: e.event };
-  });
-  const eventsStr = JSON.stringify(newEvents);
+  // const newEvents: StringifiedDateEvent[] = events.map((e: Event) => {
+  //   return { date: e.date.toString(), event: e.event };
+  // });
+  // const eventsStr = JSON.stringify(newEvents);
+  // window.localStorage.setItem("events", eventsStr);
+  const eventsStr = JSON.stringify(events);
   window.localStorage.setItem("events", eventsStr);
 };
 
@@ -101,4 +103,27 @@ export const getEventsFromLocalStorage = (): Event[] => {
     return JSON.parse(eventsStr);
   }
   return [];
+};
+
+export const checkIfInDateRange = (
+  date: Date,
+  startDate: string,
+  endDate: string
+): boolean => {
+  const startDateArr = startDate.split("-").map((str) => parseInt(str));
+  const endDateArr = endDate.split("-").map((str) => parseInt(str));
+  const startDateInDateFormat = new Date(
+    startDateArr[0],
+    startDateArr[1] - 1,
+    startDateArr[2]
+  );
+  const endDateInDateFormat = new Date(
+    endDateArr[0],
+    endDateArr[1] - 1,
+    endDateArr[2]
+  );
+  if (date >= startDateInDateFormat && date <= endDateInDateFormat) {
+    return true;
+  }
+  return false;
 };
