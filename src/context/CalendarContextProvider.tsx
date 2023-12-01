@@ -9,6 +9,8 @@ import {
   getLastDayOfMonth,
 } from "../services/utils";
 
+import { EventService } from "../services/events-service";
+
 export const CalendarContext = createContext<any>(null);
 
 export interface EventDetails {
@@ -32,6 +34,8 @@ export interface Event {
   label: string;
 }
 const CalendarContextProvider = ({ children }: any) => {
+  
+
   const currentDate = new Date();
   const month = currentDate.toLocaleString("default", { month: "long" });
   const year = currentDate.getFullYear();
@@ -56,9 +60,9 @@ const CalendarContextProvider = ({ children }: any) => {
   const [showNewEventModal, setShowNewEventModal] = useState<boolean>(false);
   const [showEventDetailsModal, setShowEventDetailsModal] =
     useState<boolean>(false);
-  const currentEvents = getEventsFromLocalStorage();
+  // const currentEvents = getEventsFromLocalStorage();
   // const [events, setEvents] = useState<Event[]>(currentEvents);
-  const [events, setEvents] = useState<Event[]>(currentEvents);
+  const [events, setEvents] = useState<Event[]|undefined>();
   const [currentEventList, setCurrentEventList] = useState<Event[]>();
   const [currentEvent, setCurrentEvent] = useState<Event>();
   const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -83,6 +87,11 @@ const CalendarContextProvider = ({ children }: any) => {
     const daysArrayForNextMonth = generateDaysArray(6 - lastDay);
     setDaysArrayForNextMonth(daysArrayForNextMonth);
   }, [date]);
+
+  useEffect(() => {
+    EventService.get().then((data)=>setEvents(data));
+  }, [currentEventList])
+  
 
   return (
     <CalendarContext.Provider

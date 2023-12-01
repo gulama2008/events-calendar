@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import EventForm from "../EventForm/EventForm";
 import styles from "./EventDetails.module.scss";
 import { useContext, useEffect, useState } from "react";
-import { CalendarContext } from "../../context/CalendarContextProvider";
+import { CalendarContext, Event } from "../../context/CalendarContextProvider";
 
 const EventDetails = () => {
   const {
@@ -42,7 +42,7 @@ const EventDetails = () => {
       setModalClass(styles.modal);
     }
   }, [showEventDetailsModal]);
-  const formSubmit = () => {
+  const formSubmit = (data:Event) => {
     console.log("event details form submitted");
     setShowEventDetailsModal(false);
     setShowEventListContainer(true);

@@ -34,19 +34,19 @@ const EventListContainer = () => {
     setShowEventListContainer(false);
   };
 
-  const getEventsOnCurrentDate = () => {
-    const eventsOnCurrentDate = events.filter((e: Event) => {
-      const startDate = e.startDate;
-      const endDate = e.endDate;
-      // checkIfInDateRange(date, startDate, endDate);
-      return checkIfInDateRange(date, startDate, endDate);
-    });
-    setCurrentEventList(eventsOnCurrentDate);
-  };
+  // const getEventsOnCurrentDate = () => {
+  //   const eventsOnCurrentDate = events.filter((e: Event) => {
+  //     const startDate = e.startDate;
+  //     const endDate = e.endDate;
+  //     // checkIfInDateRange(date, startDate, endDate);
+  //     return checkIfInDateRange(date, startDate, endDate);
+  //   });
+  //   setCurrentEventList(eventsOnCurrentDate);
+  // };
 
-  useEffect(() => {
-    getEventsOnCurrentDate();
-  }, [events, showEventListContainer]);
+  // useEffect(() => {
+  //   getEventsOnCurrentDate();
+  // }, [events, showEventListContainer]);
 
   return (
     <div>

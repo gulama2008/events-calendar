@@ -3,8 +3,11 @@ import { CalendarContext, Event } from "../../context/CalendarContextProvider";
 import styles from "./EventList.module.scss";
 import EventDetails from "../EventDetails/EventDetails";
 import EventDetail from "../EventDetail/EventDetail";
+import { useQuery } from "@tanstack/react-query";
+import {EventService } from "../../services/events-service";
 
 const EventList = () => {
+  
   const { currentEventList } = useContext(CalendarContext);
   useEffect(() => {
     console.log(currentEventList);

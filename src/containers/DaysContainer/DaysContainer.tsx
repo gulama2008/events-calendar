@@ -6,6 +6,8 @@ import DayFromOtherMonth from "../../components/DayFromOtherMonth/DayFromOtherMo
 import EventModal from "../../components/EventModal/EventModal";
 import NewEvent from "../../components/NewEvent/NewEvent";
 import { checkIfInDateRange } from "../../services/utils";
+import { useQuery } from "@tanstack/react-query";
+import { EventService } from "../../services/events-service";
 
 const DaysContainer = () => {
   const {
@@ -23,6 +25,8 @@ const DaysContainer = () => {
   const [calendarContainerClass, setCalendarContainerClass] =
     useState<string>();
   const [modalClass, setModalClass] = useState<string>();
+  
+
   useEffect(() => {
     if (showModal) {
       console.log(currentEventList);

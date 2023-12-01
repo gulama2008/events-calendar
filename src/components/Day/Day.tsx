@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import styles from "./Day.module.scss";
 import { CalendarContext, Event } from "../../context/CalendarContextProvider";
-import { getDate, getIndexOfWeek } from "../../services/utils";
+import { checkIfInDateRange, getDate, getIndexOfWeek } from "../../services/utils";
 export interface DayProps {
   day: number;
 }
@@ -18,8 +18,8 @@ const Day = ({ day }: DayProps) => {
   useEffect(() => {
     const currentDate = getDate(date, day);
     setEventForCurrentDate(null);
-    const eventsForCurrentDate = events.find((event: Event) => {
-      return event.date === currentDate.toString();
+    const eventsForCurrentDate = events?.filter((event: Event) => {
+      return checkIfInDateRange(currentDate,event.startDate,event.endDate);
     });
     
     if (eventsForCurrentDate) {
@@ -39,8 +39,8 @@ const Day = ({ day }: DayProps) => {
       <div className={styles.day}>{day}</div>
       <div className={styles.event_container}>
         {eventsForCurrentDate &&
-          eventsForCurrentDate.event.map((e: string) => {
-            return <div className={styles.event}>{e}</div>;
+          eventsForCurrentDate.map((e: Event) => {
+            return <div className={styles.event}>{e.eventName}</div>;
           })}
       </div>
     </div>
