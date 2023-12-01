@@ -21,6 +21,8 @@ const EventDetail = ({ e, index }: EventDetailProps) => {
   } = useContext(CalendarContext);
 
   const handleShowEventDetailsModal = () => {
+    console.log(e);
+    
     setCurrentEvent(e);
     setShowEventDetailsModal(true);
     setShowEventListContainer(false);

@@ -90,7 +90,7 @@ const CalendarContextProvider = ({ children }: any) => {
 
   useEffect(() => {
     EventService.get().then((data)=>setEvents(data));
-  }, [currentEventList])
+  }, [])
   
 
   return (

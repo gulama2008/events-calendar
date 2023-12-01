@@ -24,6 +24,7 @@ const Day = ({ day }: DayProps) => {
     
     if (eventsForCurrentDate) {
       setEventForCurrentDate(eventsForCurrentDate);
+      setCurrentEventList(eventsForCurrentDate);
     }
   }, [events,date]);
 

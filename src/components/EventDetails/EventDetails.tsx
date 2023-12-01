@@ -3,6 +3,7 @@ import EventForm from "../EventForm/EventForm";
 import styles from "./EventDetails.module.scss";
 import { useContext, useEffect, useState } from "react";
 import { CalendarContext, Event } from "../../context/CalendarContextProvider";
+import { EventService } from "../../services/events-service";
 
 const EventDetails = () => {
   const {
@@ -42,8 +43,12 @@ const EventDetails = () => {
       setModalClass(styles.modal);
     }
   }, [showEventDetailsModal]);
-  const formSubmit = (data:Event) => {
-    console.log("event details form submitted");
+  const formSubmit = (data: Event) => {
+    EventService.updateEventById(currentEvent.id, data)
+      .then((res) => console.log(res))
+      .catch((e) => {
+        console.log(e);
+      });
     setShowEventDetailsModal(false);
     setShowEventListContainer(true);
   };
