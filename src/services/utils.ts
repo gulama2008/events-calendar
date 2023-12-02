@@ -159,9 +159,17 @@ export const convertDateToString = (date: Date): string => {
   return str;
 };
 
-export const countDown = (eventDate: Date) => {
+export const countDown = (eventDate: Date,startTime:string) => {
   const today = new Date();
-  const millisecondsDiff = eventDate.getTime() - today.getTime();
+  const newEventDateStr = `${eventDate} ${startTime}:00`;
+  
+  const eventDateMilliseconds = Date.parse(newEventDateStr);
+
+  // if (startTime.substring(startTime.length - 2) == "am") { 
+  //   millisecondsOnEventDate=(parseInt(startTime)+12)*
+  // }
+  // const millisecondsDiff = (eventDate.getTime()) - today.getTime();
+  const millisecondsDiff = eventDateMilliseconds - today.getTime();
   
   const seconds = Math.floor((millisecondsDiff / 1000) % 60);
   const minutes = Math.floor((millisecondsDiff / 1000 / 60) % 60);

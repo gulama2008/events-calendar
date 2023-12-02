@@ -16,6 +16,7 @@ const EventDetails = () => {
     currentEvent,
     
   } = useContext(CalendarContext);
+  console.log(currentEvent);
   const {
     register,
     handleSubmit,
@@ -63,14 +64,14 @@ const EventDetails = () => {
   };
   useEffect(() => {
     const interval = setInterval(() => {
-      const countDownTime = countDown(date);
+      const countDownTime = countDown(currentEvent.startDate, currentEvent.startTime);
       setCountDownDays(countDownTime[0]);
       setCountDownHours(countDownTime[1]);
       setCountDownMinutes(countDownTime[2]);
       setCountDownSeconds(countDownTime[3]);
     }, 1000);
     return () => clearInterval(interval);
-  }, [date, countDownSeconds]);
+  }, [date,currentEvent]);
   
   useEffect(() => {
     if (parseInt(countDownSeconds) >= 0) {
@@ -91,7 +92,7 @@ const EventDetails = () => {
         />
       </div>
       {showCountDown ? <Timer countDownDays={ countDownDays} countDownHours={countDownHours} countDownMinutes={countDownMinutes} countDownSeconds={countDownSeconds} />: (
-        <div>Event Ends</div>
+        <div>THIS EVENT HAS ENDED</div>
       )}
     </div>
   );

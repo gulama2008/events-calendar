@@ -50,7 +50,7 @@ const EventForm = ({
               Start Time:
             </label>
             <input
-              type="text"
+              type="time"
               {...register("startTime")}
               className={styles.time_input}
             />
@@ -77,7 +77,7 @@ const EventForm = ({
               End Time:
             </label>
             <input
-              type="text"
+              type="time"
               {...register("endTime")}
               className={styles.time_input}
             />
