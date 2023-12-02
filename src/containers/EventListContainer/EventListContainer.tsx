@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import EventList from "../../components/EventList/EventList";
 import add from "../../assets/add.png";
 import styles from "./EventListContainer.module.scss";
@@ -29,7 +29,7 @@ const EventListContainer = () => {
   };
 
   const handleShowNewEventModal = () => {
-    setShowEventListContainer(false);
+    // setShowEventListContainer(false);
     setShowNewEventModal(true);
     setShowEventListContainer(false);
   };
@@ -43,7 +43,15 @@ const EventListContainer = () => {
     });
     setCurrentEventList(eventsOnCurrentDate);
   };
-
+  const [modalClass, setModalClass] = useState<string>("");
+  useEffect(() => {
+    if (showEventListContainer) {
+      setModalClass(styles.show_modal);
+    } else {
+      setModalClass(styles.modal);
+    }
+  }, [showEventListContainer]);
+  
   useEffect(() => {
     console.log('get new list for current date');
     
@@ -51,8 +59,10 @@ const EventListContainer = () => {
   }, [events, showEventListContainer]);
 
   return (
-    <div className={styles.container}>
-      <div className={styles.date}>{date.toLocaleDateString("en-GB", options)}</div>
+    <div className={modalClass}>
+      <div className={styles.date}>
+        {date.toLocaleDateString("en-GB", options)}
+      </div>
 
       <EventList />
       <img

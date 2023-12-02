@@ -1,0 +1,93 @@
+.name {
+  width: 90%;
+  height: 40px;
+  font-size: 20px;
+  border: none;
+  outline: none;
+  // border-bottom: 1px solid #8e929a;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+.date_time_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.date_time {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: space-around;
+}
+
+.date {
+  display: flex;
+  flex-direction: column;
+//   align-items: center;
+}
+
+.time {
+  display: flex;
+  flex-direction: column;
+}
+
+.arrow {
+  width: 25px;
+}
+
+.date_picker {
+  width: 120px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  
+}
+
+.time_input {
+  width: 120px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.location_container {
+  margin-left: 20px;
+  text-align: left;
+}
+
+.input {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-left: 10px;
+}
+
+.label_container {
+  margin-left: 20px;
+  margin-top: 15px;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.label {
+  display: inline-block;
+  width: 80px;
+  text-align: left;
+}
+
+.btn_save {
+  background-color: #0d6efd;
+  color: white;
+  border: none;
+  margin-right: 50px;
+  width: 90px;
+}
+
+.btn_cancel {
+  width: 88px;
+  color: #0d6efd;
+  border: 1px solid #0d6efd;
+  text-align: center;
+}

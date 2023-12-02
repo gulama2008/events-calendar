@@ -65,6 +65,7 @@ const CalendarContextProvider = ({ children }: any) => {
   const [currentEvent, setCurrentEvent] = useState<Event>();
   const [eventsChange, setEventsChange] = useState<number>(0);
   const [defaultDateStr, setDefaultDateStr] = useState<string>("");
+  // const [showCountDown, setShowCountDown] = useState<boolean>(true);
   const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   useEffect(() => {
@@ -129,6 +130,8 @@ const CalendarContextProvider = ({ children }: any) => {
         setEventsChange,
         defaultDateStr,
         setDefaultDateStr,
+        // showCountDown,
+        // setShowCountDown,
       }}
     >
       {children}

@@ -167,9 +167,8 @@ export const countDown = (eventDate: Date) => {
   const minutes = Math.floor((millisecondsDiff / 1000 / 60) % 60);
   const hours = Math.floor((millisecondsDiff / 1000 / 60 / 60) % 24);
   const days = Math.floor(millisecondsDiff / (1000 * 60 * 60 * 24));
-  
   const formattedTime = [
-    days.toString(),
+    days.toString().length==1?days.toString().padStart(2, "0"):days.toString(),
     hours.toString().padStart(2, "0"),
     minutes.toString().padStart(2, "0"),
     seconds.toString().padStart(2, "0"),

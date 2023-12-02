@@ -5,19 +5,16 @@ import { useContext, useEffect, useState } from "react";
 import { CalendarContext, Event } from "../../context/CalendarContextProvider";
 import { EventService } from "../../services/events-service";
 import { countDown } from "../../services/utils";
+import Timer from "../Timer/Timer";
 
 const EventDetails = () => {
   const {
     date,
-    events,
-    setEvents,
-    setCurrentEventList,
-    showNewEventModal,
-    setShowNewEventModal,
     setShowEventListContainer,
     showEventDetailsModal,
     setShowEventDetailsModal,
     currentEvent,
+    
   } = useContext(CalendarContext);
   const {
     register,
@@ -37,9 +34,9 @@ const EventDetails = () => {
     mode: "all",
   });
   const [modalClass, setModalClass] = useState<string>();
-  const [countDownDays, setCountDownDays] = useState<string>();
-  const [countDownHours, setCountDownHours] = useState<string>();
-  const [countDownMinutes, setCountDownMinutes] = useState<string>();
+  const [countDownDays, setCountDownDays] = useState<string>("");
+  const [countDownHours, setCountDownHours] = useState<string>("");
+  const [countDownMinutes, setCountDownMinutes] = useState<string>("");
   const [countDownSeconds, setCountDownSeconds] = useState<string>("");
   const [showCountDown, setShowCountDown] = useState<boolean>(true);
   useEffect(() => {
@@ -76,7 +73,7 @@ const EventDetails = () => {
   }, [date, countDownSeconds]);
   
   useEffect(() => {
-    if (parseInt(countDownSeconds) > 0) {
+    if (parseInt(countDownSeconds) >= 0) {
       setShowCountDown(true);
     } else {
       setShowCountDown(false);
@@ -84,7 +81,7 @@ const EventDetails = () => {
   }, [countDownSeconds]);
   return (
     <div className={modalClass}>
-      <div>
+      <div className={styles.form}>
         <EventForm
           register={register}
           errors={errors}
@@ -93,15 +90,7 @@ const EventDetails = () => {
           handleCancel={handleCancel}
         />
       </div>
-      {showCountDown ? (
-        <div>
-          <div>The event will start in: </div>
-          <div>{countDownDays} days</div>
-          <div>{countDownHours} Hours</div>
-          <div>{countDownMinutes} Minutes</div>
-          <div>{countDownSeconds} Seconds</div>
-        </div>
-      ) : (
+      {showCountDown ? <Timer countDownDays={ countDownDays} countDownHours={countDownHours} countDownMinutes={countDownMinutes} countDownSeconds={countDownSeconds} />: (
         <div>Event Ends</div>
       )}
     </div>

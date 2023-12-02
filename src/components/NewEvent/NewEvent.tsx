@@ -44,7 +44,7 @@ const NewEvent = () => {
     },
     mode: "all",
   });
-  const [modalClass, setModalClass] = useState<string>("2023-12-10");
+  const [modalClass, setModalClass] = useState<string>("");
   useEffect(() => {
     if (showNewEventModal) {
       setModalClass(styles.show_modal);
