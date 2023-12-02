@@ -45,12 +45,14 @@ const EventListContainer = () => {
   };
 
   useEffect(() => {
+    console.log('get new list for current date');
+    
     getEventsOnCurrentDate();
   }, [events, showEventListContainer]);
 
   return (
-    <div>
-      <div>{date.toLocaleDateString("en-GB", options)}</div>
+    <div className={styles.container}>
+      <div className={styles.date}>{date.toLocaleDateString("en-GB", options)}</div>
 
       <EventList />
       <img

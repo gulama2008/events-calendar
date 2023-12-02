@@ -1,10 +1,15 @@
 import { useContext, useEffect, useState } from "react";
 import { CalendarContext, Event } from "../../context/CalendarContextProvider";
-import { getEventsFromLocalStorage, saveEventsToLocalStorage } from "../../services/utils";
+import {
+  convertDateToString,
+  getEventsFromLocalStorage,
+  saveEventsToLocalStorage,
+} from "../../services/utils";
 import styles from "./NewEvent.module.scss";
 import { useForm } from "react-hook-form";
 import EventDetails from "../EventDetails/EventDetails";
 import EventForm from "../EventForm/EventForm";
+import { EventService } from "../../services/events-service";
 
 const NewEvent = () => {
   const {
@@ -15,7 +20,14 @@ const NewEvent = () => {
     showNewEventModal,
     setShowNewEventModal,
     setShowEventListContainer,
+    eventsChange,
+    setEventsChange,
+    defaultDateStr,
   } = useContext(CalendarContext);
+  console.log(defaultDateStr);
+  const test = "2023-12-10";
+  console.log(test);
+
   const {
     register,
     handleSubmit,
@@ -23,16 +35,16 @@ const NewEvent = () => {
   } = useForm({
     defaultValues: {
       eventName: "",
-      startDate: "",
+      startDate: defaultDateStr,
       startTime: "",
-      endDate: "",
+      endDate: test,
       endTime: "",
       location: "",
       label: "",
     },
     mode: "all",
   });
-  const [modalClass, setModalClass] = useState<string>();
+  const [modalClass, setModalClass] = useState<string>("2023-12-10");
   useEffect(() => {
     if (showNewEventModal) {
       setModalClass(styles.show_modal);
@@ -40,62 +52,23 @@ const NewEvent = () => {
       setModalClass(styles.modal);
     }
   }, [showNewEventModal]);
-  // const [eventTitle, setEventTitle] = useState<string>("");
-  // const handleEventTitleChange = (e: any) => {
-  //   setEventTitle(e.target.value);
-  // };
-  const handleSaveEvent = (data: Event) => {
-    // let newEvents = [];
-    // const event = events.find((e: Event) => e.date == data.date);
-    // if (!event) {
-    //   newEvents = [...events, { date: date.toString(), event: [eventTitle] }];
-    //   setCurrentEventList({ date: date.toString(), event: [eventTitle] });
-    // } else {
-    //   newEvents = events.map((e: Event) => {
-    //     if (e.date == date) {
-    //       e.event.push(eventTitle);
-    //       setCurrentEventList(e);
-    //       return e;
-    //     } else {
-    //       return e;
-    //     }
-    //   });
-    // }
-    console.log(data);
-    const events = getEventsFromLocalStorage();
-    events.push(data);
-    setEvents(events);
-    saveEventsToLocalStorage(events);
-  }
-  //   setEvents(newEvents);
-  //   saveEventsToLocalStorage(newEvents);
-  //   setEventTitle("");
-  // };
 
-  // return (
-  //   <div className={styles.container}>
-  //     <form action="" className={styles.form}>
-  //       <input
-  //         type="text"
-  //         placeholder="Event title"
-  //         value={eventTitle}
-  //         onChange={handleEventTitleChange}
-  //         className={styles.input}
-  //       />
-  //       <div>
-  //         <button onClick={handleSaveEvent} className={styles.btn}>
-  //           Save
-  //         </button>
-  //       </div>
-  //     </form>
-  //   </div>
-  // );
-  const formSubmit = (data: any) => {
-    console.log("new event form submitted");
-    handleSaveEvent(data);
-    setShowNewEventModal(false);
-    setShowEventListContainer(true);
+  const formSubmit = (data: Event) => {
+    EventService.createEvent(data)
+      .then(() => {
+        setShowNewEventModal(false);
+        setShowEventListContainer(true);
+        setEventsChange(eventsChange + 1);
+      })
+      .catch((e) => console.log(e));
   };
+
+  const handleCancel = (e: any) => {
+    e.preventDefault();
+    setShowEventListContainer(true);
+    setShowNewEventModal(false);
+  };
+
   return (
     <div className={modalClass}>
       <EventForm
@@ -103,6 +76,7 @@ const NewEvent = () => {
         errors={errors}
         handleSubmit={handleSubmit}
         formSubmit={formSubmit}
+        handleCancel={handleCancel}
       />
     </div>
   );

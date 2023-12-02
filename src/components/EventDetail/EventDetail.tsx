@@ -2,7 +2,8 @@ import styles from "./EventDetail.module.scss";
 import bin from "../../assets/delete.png";
 import { CalendarContext, Event } from "../../context/CalendarContextProvider";
 import { useContext } from "react";
-import { saveEventsToLocalStorage } from "../../services/utils";
+import { EventService } from "../../services/events-service";
+import { getDateAndMonth } from "../../services/utils";
 
 export interface EventDetailProps {
   e: Event;
@@ -18,41 +19,45 @@ const EventDetail = ({ e, index }: EventDetailProps) => {
     setShowEventDetailsModal,
     setShowEventListContainer,
     setCurrentEvent,
+    eventsChange,
+    setEventsChange,
   } = useContext(CalendarContext);
-
+  // const isEventForOneDay = e.startDate == e.endDate;
+  const startDateStr = getDateAndMonth(e.startDate);
+  const endDateStr = getDateAndMonth(e.endDate);
   const handleShowEventDetailsModal = () => {
-    console.log(e);
-    
     setCurrentEvent(e);
     setShowEventDetailsModal(true);
     setShowEventListContainer(false);
   };
-  // const handleDelete = () => {
-  //   const list: string[] = currentEventList.event;
-  //   list.splice(index, 1);
-  //   const newCurrentEventList = {
-  //     ...currentEventList,
-  //     event: list,
-  //   };
-  //   setCurrentEventList(newCurrentEventList);
-  //   const newEvents = events.map((e: Event) => {
-  //     if (e.date == newCurrentEventList.date) {
-  //       e.event = newCurrentEventList.event;
-  //       return e;
-  //     } else {
-  //       return e;
-  //     }
-  //   });
-  //   setEvents(newEvents);
-  //   saveEventsToLocalStorage(newEvents);
-  // };
+
+  const handleDelete = () => {
+    EventService.deleteEmployeeById(e.id)
+      .then(() => {
+        setEventsChange(eventsChange - 1);
+      })
+      .catch((e) => console.log(e));
+  };
   return (
-    <div className={styles.event} key={index}>
-      <div className={styles.color_block}></div>
-      <div className={styles.text} onClick={handleShowEventDetailsModal}>
-        {e.eventName}
+    <div key={index} className={styles.container}>
+      <div className={styles.event}>
+        <div className={styles.start_time}>{ e.startTime}</div>
+        <div className={styles.color_block}></div>
+        <div className={styles.text} onClick={handleShowEventDetailsModal}>
+          {e.eventName}
+        </div>
+        <img
+          src={bin}
+          alt=""
+          className={styles.delete}
+          onClick={handleDelete}
+        />
       </div>
-      <img src={bin} alt="" className={styles.delete} />
+      <div className={styles.time}>
+        
+        {startDateStr} {e.startTime} - { endDateStr} {e.endTime}
+        
+      </div>
     </div>
   );
 };

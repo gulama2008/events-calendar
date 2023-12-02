@@ -1,4 +1,19 @@
 import { Event } from "../context/CalendarContextProvider";
+
+export const month = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
 export interface StringifiedDateEvent {
   date: string;
   event: string[];
@@ -127,3 +142,46 @@ export const checkIfInDateRange = (
   }
   return false;
 };
+
+export const convertDateToString = (date: Date): string => {
+  console.log(date);
+
+  const pad = (n: any) => `${Math.floor(Math.abs(n))}`.padStart(2, "0");
+  // const str = `"${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}"`
+  const str = `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(
+    date.getDate()
+  )}`;
+  // const str = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+  // console.log(str);
+  // console.log(typeof str);
+  console.log(str);
+
+  return str;
+};
+
+export const countDown = (eventDate: Date) => {
+  const today = new Date();
+  const millisecondsDiff = eventDate.getTime() - today.getTime();
+  
+  const seconds = Math.floor((millisecondsDiff / 1000) % 60);
+  const minutes = Math.floor((millisecondsDiff / 1000 / 60) % 60);
+  const hours = Math.floor((millisecondsDiff / 1000 / 60 / 60) % 24);
+  const days = Math.floor(millisecondsDiff / (1000 * 60 * 60 * 24));
+  
+  const formattedTime = [
+    days.toString(),
+    hours.toString().padStart(2, "0"),
+    minutes.toString().padStart(2, "0"),
+    seconds.toString().padStart(2, "0"),
+  ]
+  return formattedTime;
+};
+
+export const getDateAndMonth = (date: string): string => { 
+  const dateArr = date.split("-").map((str) => parseInt(str));
+  console.log(dateArr[1]);
+  
+  const dateStr = dateArr[2].toString().padStart(2, "0");
+  const monthStr = month[dateArr[1]-1];
+  return `${dateStr} ${monthStr}`
+}

@@ -4,6 +4,7 @@ import styles from "./EventDetails.module.scss";
 import { useContext, useEffect, useState } from "react";
 import { CalendarContext, Event } from "../../context/CalendarContextProvider";
 import { EventService } from "../../services/events-service";
+import { countDown } from "../../services/utils";
 
 const EventDetails = () => {
   const {
@@ -36,6 +37,11 @@ const EventDetails = () => {
     mode: "all",
   });
   const [modalClass, setModalClass] = useState<string>();
+  const [countDownDays, setCountDownDays] = useState<string>();
+  const [countDownHours, setCountDownHours] = useState<string>();
+  const [countDownMinutes, setCountDownMinutes] = useState<string>();
+  const [countDownSeconds, setCountDownSeconds] = useState<string>("");
+  const [showCountDown, setShowCountDown] = useState<boolean>(true);
   useEffect(() => {
     if (showEventDetailsModal) {
       setModalClass(styles.show_modal);
@@ -52,14 +58,52 @@ const EventDetails = () => {
     setShowEventDetailsModal(false);
     setShowEventListContainer(true);
   };
+
+  const handleCancel = (e: any) => {
+    e.preventDefault();
+    setShowEventDetailsModal(false);
+    setShowEventListContainer(true);
+  };
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const countDownTime = countDown(date);
+      setCountDownDays(countDownTime[0]);
+      setCountDownHours(countDownTime[1]);
+      setCountDownMinutes(countDownTime[2]);
+      setCountDownSeconds(countDownTime[3]);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [date, countDownSeconds]);
+  
+  useEffect(() => {
+    if (parseInt(countDownSeconds) > 0) {
+      setShowCountDown(true);
+    } else {
+      setShowCountDown(false);
+    }
+  }, [countDownSeconds]);
   return (
     <div className={modalClass}>
-      <EventForm
-        register={register}
-        errors={errors}
-        handleSubmit={handleSubmit}
-        formSubmit={formSubmit}
-      />
+      <div>
+        <EventForm
+          register={register}
+          errors={errors}
+          handleSubmit={handleSubmit}
+          formSubmit={formSubmit}
+          handleCancel={handleCancel}
+        />
+      </div>
+      {showCountDown ? (
+        <div>
+          <div>The event will start in: </div>
+          <div>{countDownDays} days</div>
+          <div>{countDownHours} Hours</div>
+          <div>{countDownMinutes} Minutes</div>
+          <div>{countDownSeconds} Seconds</div>
+        </div>
+      ) : (
+        <div>Event Ends</div>
+      )}
     </div>
   );
 };

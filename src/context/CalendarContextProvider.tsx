@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import {
   calculateNumOfDaysForCurrentMonth,
   calculateNumOfDaysForPreviousMonth,
+  convertDateToString,
   generateDaysArray,
   generateDaysArrayForPreviousMonth,
   getEventsFromLocalStorage,
@@ -23,6 +24,7 @@ export interface EventDetails {
   label: string;
 }
 export interface Event {
+  id: number;
   // date: string;
   // event: EventDetails[];
   eventName: string;
@@ -34,8 +36,6 @@ export interface Event {
   label: string;
 }
 const CalendarContextProvider = ({ children }: any) => {
-  
-
   const currentDate = new Date();
   const month = currentDate.toLocaleString("default", { month: "long" });
   const year = currentDate.getFullYear();
@@ -60,11 +60,11 @@ const CalendarContextProvider = ({ children }: any) => {
   const [showNewEventModal, setShowNewEventModal] = useState<boolean>(false);
   const [showEventDetailsModal, setShowEventDetailsModal] =
     useState<boolean>(false);
-  // const currentEvents = getEventsFromLocalStorage();
-  // const [events, setEvents] = useState<Event[]>(currentEvents);
-  const [events, setEvents] = useState<Event[]|undefined>();
+  const [events, setEvents] = useState<Event[] | undefined>();
   const [currentEventList, setCurrentEventList] = useState<Event[]>();
   const [currentEvent, setCurrentEvent] = useState<Event>();
+  const [eventsChange, setEventsChange] = useState<number>(0);
+  const [defaultDateStr, setDefaultDateStr] = useState<string>("");
   const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   useEffect(() => {
@@ -86,12 +86,14 @@ const CalendarContextProvider = ({ children }: any) => {
     setLastDay(lastDay);
     const daysArrayForNextMonth = generateDaysArray(6 - lastDay);
     setDaysArrayForNextMonth(daysArrayForNextMonth);
+    const currentDateInString = convertDateToString(date);
+    setDefaultDateStr(currentDateInString);
   }, [date]);
 
   useEffect(() => {
-    EventService.get().then((data)=>setEvents(data));
-  }, [])
-  
+    EventService.get().then((data) => setEvents(data));
+    console.log("new fetch");
+  }, [eventsChange]);
 
   return (
     <CalendarContext.Provider
@@ -122,7 +124,11 @@ const CalendarContextProvider = ({ children }: any) => {
         showEventListContainer,
         setShowEventListContainer,
         setCurrentEvent,
-        currentEvent
+        currentEvent,
+        eventsChange,
+        setEventsChange,
+        defaultDateStr,
+        setDefaultDateStr,
       }}
     >
       {children}

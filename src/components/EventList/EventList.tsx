@@ -10,7 +10,10 @@ const EventList = () => {
   
   const { currentEventList } = useContext(CalendarContext);
   useEffect(() => {
+    console.log('event list update');
     console.log(currentEventList);
+    
+
   }, [currentEventList]);
 
   return (

@@ -1,13 +1,16 @@
+import { useContext } from "react";
 import styles from "./EventForm.module.scss";
+import { CalendarContext } from "../../context/CalendarContextProvider";
 export interface EventFormProps {
   register: any;
   errors: any;
   formSubmit: (data: any) => any;
   handleSubmit: (formSubmit: any) => any;
-  // handleCancel: () => any;
-}
-const EventForm = ({ register, errors, handleSubmit,formSubmit }: EventFormProps) => {
+  handleCancel: (e: any) => any;
   
+}
+const EventForm = ({ register, errors, handleSubmit, formSubmit,handleCancel }: EventFormProps) => {
+  // const { defaultDateStr}=useContext(CalendarContext)
   return (
     <form onSubmit={handleSubmit(formSubmit)} className={styles.form}>
       <div>
@@ -30,6 +33,7 @@ const EventForm = ({ register, errors, handleSubmit,formSubmit }: EventFormProps
           type="date"
           {...register("startDate")}
           // className={styles.input}
+          // defaultValue={defaultDateStr}
         />
         {errors.startDate && <span>This field is required</span>}
       </div>
@@ -90,6 +94,7 @@ const EventForm = ({ register, errors, handleSubmit,formSubmit }: EventFormProps
       </div>
       <div>
         <button className={styles.btn}>Save</button>
+        <button onClick={handleCancel}>Cancel</button>
       </div>
     </form>
   );

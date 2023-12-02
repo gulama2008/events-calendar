@@ -8,10 +8,17 @@ export class EventService {
     return eventArray;
   }
 
-  public static async updateEventById(
-    id: number,
-    data: Event
-  ): Promise<Event> {
+  public static async createEvent(data: Event): Promise<Event> {
+    const response = await instance.post(`/`, data);
+    return response.data;
+  }
+
+  public static async deleteEmployeeById(id: number): Promise<Event> {
+    const response = await instance.delete(`/${id}`);
+    return response.data;
+  }
+    
+  public static async updateEventById(id: number, data: Event): Promise<Event> {
     const response = await instance.patch(`/${id}`, data);
     return response.data;
   }
