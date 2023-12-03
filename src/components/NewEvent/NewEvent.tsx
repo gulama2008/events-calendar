@@ -34,6 +34,12 @@ const NewEvent = () => {
     mode: "all",
   });
   const [modalClass, setModalClass] = useState<string>("");
+  useEffect(() => {
+    if (defaultDateStr) {
+      setValue("startDate", defaultDateStr);
+      setValue("endDate", defaultDateStr);
+    }
+  }, [defaultDateStr]);
   useEffect(() => { },[defaultDateStr])
   useEffect(() => { setCurrentTags([]) }, [])
   useEffect(() => {
@@ -70,7 +76,7 @@ const NewEvent = () => {
         formSubmit={formSubmit}
         handleCancel={handleCancel}
         setValue={setValue}
-        dateValue={defaultDateStr}
+        // dateValue={defaultDateStr}
       />
     </div>
   );
