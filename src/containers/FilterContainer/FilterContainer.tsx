@@ -8,7 +8,8 @@ const FilterContainer = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+      formState: { errors },
+    reset
   } = useForm({
     defaultValues: {
       location: "all",
@@ -30,19 +31,33 @@ const FilterContainer = () => {
         setFilters(data);
         
     }
-  return (
-    <form onSubmit={handleSubmit(formSubmit)}>
+
+    return (
       <div>
-        <div>By Location:</div>
-        <Filter options={locations} register={register} name="location" errors={errors}/>
-      </div>
-      <div>
-        <div>By Label:</div>
-        <Filter options={labels} register={register} name="label" errors={errors}/>
+        <form onSubmit={handleSubmit(formSubmit)}>
+          <div>
+            <div>By Location:</div>
+            <Filter
+              options={locations}
+              register={register}
+              name="location"
+              errors={errors}
+            />
           </div>
-          <button>Filter</button>
-    </form>
-  );
+          <div>
+            <div>By Label:</div>
+            <Filter
+              options={labels}
+              register={register}
+              name="label"
+              errors={errors}
+            />
+          </div>
+                <button>Filter</button>
+                <button onClick={() => reset()}>Clear</button>
+        </form>
+      </div>
+    );
 };
 
 export default FilterContainer;
