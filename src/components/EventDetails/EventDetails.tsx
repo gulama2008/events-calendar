@@ -64,14 +64,20 @@ const EventDetails = () => {
   };
   useEffect(() => {
     const interval = setInterval(() => {
+      console.log('still running');
+      
       const countDownTime = countDown(currentEvent.startDate, currentEvent.startTime);
       setCountDownDays(countDownTime[0]);
       setCountDownHours(countDownTime[1]);
       setCountDownMinutes(countDownTime[2]);
       setCountDownSeconds(countDownTime[3]);
+      if (parseInt(countDownTime[3]) < 0||!showEventDetailsModal) { 
+        clearInterval(interval);
+      }
     }, 1000);
+    
     return () => clearInterval(interval);
-  }, [date,currentEvent]);
+  }, [date,currentEvent,showEventDetailsModal]);
   
   useEffect(() => {
     if (parseInt(countDownSeconds) >= 0) {
