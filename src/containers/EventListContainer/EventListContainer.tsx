@@ -20,7 +20,6 @@ const EventListContainer = () => {
     events,
     setCurrentEventList,
     setDefaultDateStr,
-    defaultDateStr,
   } = useContext(CalendarContext);
 
   const handleCloseModal = (e: any) => {
@@ -30,7 +29,6 @@ const EventListContainer = () => {
   };
 
   const handleShowNewEventModal = () => {
-    // setShowEventListContainer(false);
     setShowNewEventModal(true);
     setShowEventListContainer(false);
   };
@@ -39,7 +37,6 @@ const EventListContainer = () => {
     const eventsOnCurrentDate = events?.filter((e: Event) => {
       const startDate = e.startDate;
       const endDate = e.endDate;
-      // checkIfInDateRange(date, startDate, endDate);
       return checkIfInDateRange(date, startDate, endDate);
     });
     setCurrentEventList(eventsOnCurrentDate);
@@ -54,8 +51,6 @@ const EventListContainer = () => {
   }, [showEventListContainer]);
 
   useEffect(() => {
-    console.log("get new list for current date");
-
     getEventsOnCurrentDate();
   }, [events, showEventListContainer]);
   useEffect(() => {

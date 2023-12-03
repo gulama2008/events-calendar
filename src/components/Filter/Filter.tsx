@@ -10,7 +10,7 @@ export interface FilterProps {
 const Filter = ({ options, register, name,errors }: FilterProps) => {
   return (
     <div>
-      <select {...register( name )}>
+      <select {...register( name )} className={styles.select}>
         <option value="all">All</option>
         {options.map((option) => {
           return <option value={option}>{option}</option>;

@@ -13,8 +13,10 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <CalendarContextProvider>
-        <MonthAndYear />
-        <FilterContainer/>
+        <div id="headerContainer">
+          <MonthAndYear />
+          <FilterContainer />
+        </div>
         <DaysContainer />
       </CalendarContextProvider>
     </QueryClientProvider>

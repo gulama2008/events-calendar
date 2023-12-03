@@ -1,0 +1,22 @@
+.container{
+    display: flex;
+    gap: 10px;
+    margin-right: 15px;
+}
+
+.btn{
+    background-color: #0d6efd;
+    border: none;
+    color: white;
+    height: 40px;
+    
+}
+
+.filter_container{
+    display: flex;
+    gap: 5px;
+}
+
+.text{
+    line-height: 40px;
+}

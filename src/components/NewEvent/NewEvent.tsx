@@ -4,23 +4,17 @@ import styles from "./NewEvent.module.scss";
 import { useForm } from "react-hook-form";
 import EventForm from "../EventForm/EventForm";
 import { EventService } from "../../services/events-service";
-import { convertDateToString } from "../../services/utils";
 
 const NewEvent = () => {
   const {
-    date,
     showNewEventModal,
     setShowNewEventModal,
     setShowEventListContainer,
     eventsChange,
     setEventsChange,
     defaultDateStr,
-    // setDefaultDateStr,
     setCurrentTags
   } = useContext(CalendarContext);
-  console.log(defaultDateStr);
-  const test = defaultDateStr;
-  console.log(test);
   
   const {
     register,
@@ -42,10 +36,6 @@ const NewEvent = () => {
   const [modalClass, setModalClass] = useState<string>("");
   useEffect(() => { },[defaultDateStr])
   useEffect(() => { setCurrentTags([]) }, [])
-  // useEffect(() => { 
-  //   const defaultDateStr = convertDateToString(date);
-  //   setDefaultDateStr(defaultDateStr);
-  // },[date])
   useEffect(() => {
     if (showNewEventModal) {
       setModalClass(styles.show_modal);
@@ -54,9 +44,7 @@ const NewEvent = () => {
     }
   }, [showNewEventModal]);
 
-  const formSubmit = (data: Event) => {
-    console.log(data);
-    
+  const formSubmit = (data: Event) => {    
     EventService.createEvent(data)
       .then(() => {
         setShowNewEventModal(false);
