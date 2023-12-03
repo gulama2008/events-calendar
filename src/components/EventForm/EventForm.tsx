@@ -11,6 +11,7 @@ export interface EventFormProps {
   handleSubmit: (formSubmit: any) => any;
   handleCancel: (e: any) => any;
   setValue?: (e1: any, e2: any, e3: any) => any;
+  dateValue?: string;
 }
 const EventForm = ({
   register,
@@ -19,6 +20,7 @@ const EventForm = ({
   formSubmit,
   handleCancel,
   setValue,
+  dateValue
 }: EventFormProps) => {
   const { currentTags } = useContext(CalendarContext);
   return (
@@ -44,6 +46,7 @@ const EventForm = ({
             <input
               type="date"
               {...register("startDate")}
+              value={dateValue}
               // className={styles.input}
               // defaultValue={defaultDateStr}
               className={styles.date_picker}
@@ -73,6 +76,7 @@ const EventForm = ({
             <input
               type="date"
               {...register("endDate")}
+              value={dateValue}
               className={styles.date_picker}
             />
             {errors.endDate && <span>This field is required</span>}
@@ -106,7 +110,7 @@ const EventForm = ({
         {errors.label && <span>This field is required</span>}
       </div> */}
       <div className={styles.label_container}>
-        <img src={tag} alt="" className={ styles.tag_icon} />
+        <img src={tag} alt="" className={styles.tag_icon} />
         <Tags />
       </div>
       <input type="hidden" value={currentTags} {...register("label")} />

@@ -3,7 +3,7 @@ import EventList from "../../components/EventList/EventList";
 import add from "../../assets/add.png";
 import styles from "./EventListContainer.module.scss";
 import { CalendarContext, Event } from "../../context/CalendarContextProvider";
-import { checkIfInDateRange } from "../../services/utils";
+import { checkIfInDateRange, convertDateToString } from "../../services/utils";
 const options = {
   weekday: "long",
   year: "numeric",
@@ -19,8 +19,9 @@ const EventListContainer = () => {
     setShowNewEventModal,
     events,
     setCurrentEventList,
+    setDefaultDateStr,
+    defaultDateStr,
   } = useContext(CalendarContext);
-  
 
   const handleCloseModal = (e: any) => {
     e.preventDefault();
@@ -51,13 +52,16 @@ const EventListContainer = () => {
       setModalClass(styles.modal);
     }
   }, [showEventListContainer]);
-  
+
   useEffect(() => {
-    console.log('get new list for current date');
-    
+    console.log("get new list for current date");
+
     getEventsOnCurrentDate();
   }, [events, showEventListContainer]);
-
+  useEffect(() => {
+    const defaultDateStr = convertDateToString(date);
+    setDefaultDateStr(defaultDateStr);
+  }, [date]);
   return (
     <div className={modalClass}>
       <div className={styles.date}>

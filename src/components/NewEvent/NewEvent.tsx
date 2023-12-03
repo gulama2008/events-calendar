@@ -4,21 +4,24 @@ import styles from "./NewEvent.module.scss";
 import { useForm } from "react-hook-form";
 import EventForm from "../EventForm/EventForm";
 import { EventService } from "../../services/events-service";
+import { convertDateToString } from "../../services/utils";
 
 const NewEvent = () => {
   const {
+    date,
     showNewEventModal,
     setShowNewEventModal,
     setShowEventListContainer,
     eventsChange,
     setEventsChange,
     defaultDateStr,
+    // setDefaultDateStr,
     setCurrentTags
   } = useContext(CalendarContext);
   console.log(defaultDateStr);
-  const test = "2023-12-10";
+  const test = defaultDateStr;
   console.log(test);
-
+  
   const {
     register,
     handleSubmit,
@@ -27,9 +30,9 @@ const NewEvent = () => {
   } = useForm({
     defaultValues: {
       eventName: "",
-      startDate: defaultDateStr,
+      startDate: "",
       startTime: "",
-      endDate: test,
+      endDate: "",
       endTime: "",
       location: "",
       label: "",
@@ -37,7 +40,12 @@ const NewEvent = () => {
     mode: "all",
   });
   const [modalClass, setModalClass] = useState<string>("");
-  useEffect(() => { setCurrentTags([])},[])
+  useEffect(() => { },[defaultDateStr])
+  useEffect(() => { setCurrentTags([]) }, [])
+  // useEffect(() => { 
+  //   const defaultDateStr = convertDateToString(date);
+  //   setDefaultDateStr(defaultDateStr);
+  // },[date])
   useEffect(() => {
     if (showNewEventModal) {
       setModalClass(styles.show_modal);
@@ -73,7 +81,8 @@ const NewEvent = () => {
         handleSubmit={handleSubmit}
         formSubmit={formSubmit}
         handleCancel={handleCancel}
-        setValue={ setValue}
+        setValue={setValue}
+        dateValue={defaultDateStr}
       />
     </div>
   );
