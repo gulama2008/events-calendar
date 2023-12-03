@@ -1,22 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import { CalendarContext, Event } from "../../context/CalendarContextProvider";
-import {
-  convertDateToString,
-  getEventsFromLocalStorage,
-  saveEventsToLocalStorage,
-} from "../../services/utils";
 import styles from "./NewEvent.module.scss";
 import { useForm } from "react-hook-form";
-import EventDetails from "../EventDetails/EventDetails";
 import EventForm from "../EventForm/EventForm";
 import { EventService } from "../../services/events-service";
 
 const NewEvent = () => {
   const {
-    date,
-    events,
-    setEvents,
-    setCurrentEventList,
     showNewEventModal,
     setShowNewEventModal,
     setShowEventListContainer,

@@ -1,13 +1,25 @@
 import { useContext, useEffect, useState } from "react";
 import styles from "./Day.module.scss";
 import { CalendarContext, Event } from "../../context/CalendarContextProvider";
-import { checkIfInDateRange, getDate, getIndexOfWeek } from "../../services/utils";
+import {
+  checkIfInDateRange,
+  getDate,
+  getIndexOfWeek,
+} from "../../services/utils";
 export interface DayProps {
   day: number;
 }
 
 const Day = ({ day }: DayProps) => {
-  const { date, setDate, setShowModal, events,setCurrentEventList } = useContext(CalendarContext);
+  const {
+    date,
+    setDate,
+    setShowModal,
+    events,
+    setCurrentEventList,
+    filters,
+    setFilters,
+  } = useContext(CalendarContext);
   // const currentDate = getDate(date, day);
   // const [currentDate, setCurrentDate] = useState();
   const [eventsForCurrentDate, setEventForCurrentDate] = useState<any>();
@@ -19,14 +31,35 @@ const Day = ({ day }: DayProps) => {
     const currentDate = getDate(date, day);
     setEventForCurrentDate(null);
     const eventsForCurrentDate = events?.filter((event: Event) => {
-      return checkIfInDateRange(currentDate,event.startDate,event.endDate);
+      return checkIfInDateRange(currentDate, event.startDate, event.endDate);
     });
-    
+
     if (eventsForCurrentDate) {
-      setEventForCurrentDate(eventsForCurrentDate);
-      setCurrentEventList(eventsForCurrentDate);
+      if (filters.label != "all" || filters.location != "all") {
+        let filteredEventList;
+        if (filters.label === "all") {
+          filteredEventList = eventsForCurrentDate.filter(
+            (event: Event) => event.location == filters.location
+          );
+        } else if (filters.location === "all") {
+          filteredEventList = eventsForCurrentDate.filter((event: Event) =>
+            event.label.includes(filters.label)
+          );
+        } else {
+          filteredEventList = eventsForCurrentDate.filter(
+            (event: Event) =>
+              event.label.includes(filters.label) &&
+              event.label.includes(filters.label)
+          );
+        }
+        setCurrentEventList(filteredEventList);
+        setEventForCurrentDate(filteredEventList);
+      } else {
+        setEventForCurrentDate(eventsForCurrentDate);
+        setCurrentEventList(eventsForCurrentDate);
+      }
     }
-  }, [events,date]);
+  }, [events, date, filters]);
 
   const handleClick = () => {
     const newDate = getDate(date, day);

@@ -1,13 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import Day from "../../components/Day/Day";
 import styles from "./DaysContainer.module.scss";
-import { CalendarContext, Event } from "../../context/CalendarContextProvider";
+import { CalendarContext } from "../../context/CalendarContextProvider";
 import DayFromOtherMonth from "../../components/DayFromOtherMonth/DayFromOtherMonth";
 import EventModal from "../../components/EventModal/EventModal";
-import NewEvent from "../../components/NewEvent/NewEvent";
-import { checkIfInDateRange } from "../../services/utils";
-import { useQuery } from "@tanstack/react-query";
-import { EventService } from "../../services/events-service";
+
 
 const DaysContainer = () => {
   const {

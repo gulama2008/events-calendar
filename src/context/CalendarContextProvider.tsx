@@ -34,6 +34,10 @@ export interface Event {
   location: string;
   label: string[];
 }
+export interface Filters { 
+  location: string;
+  label: string;
+}
 const CalendarContextProvider = ({ children }: any) => {
   const currentDate = new Date();
   const month = currentDate.toLocaleString("default", { month: "long" });
@@ -65,6 +69,7 @@ const CalendarContextProvider = ({ children }: any) => {
   const [eventsChange, setEventsChange] = useState<number>(0);
   const [defaultDateStr, setDefaultDateStr] = useState<string>("");
   const [currentTags, setCurrentTags] = useState<string[]>([]);
+  const [filters, setFilters] = useState<Filters>({ label: "all", location: "all" });
   // const [showCountDown, setShowCountDown] = useState<boolean>(true);
   const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
@@ -132,8 +137,8 @@ const CalendarContextProvider = ({ children }: any) => {
         setDefaultDateStr,
         currentTags,
         setCurrentTags,
-        // showCountDown,
-        // setShowCountDown,
+        filters,
+        setFilters,
       }}
     >
       {children}
