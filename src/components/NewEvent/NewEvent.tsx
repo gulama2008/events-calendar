@@ -62,8 +62,9 @@ const NewEvent = () => {
     EventService.createEvent(data)
       .then(() => {
         setShowNewEventModal(false);
-        setShowEventListContainer(true);
         setEventsChange(eventsChange + 1);
+        setShowEventListContainer(true);
+        
       })
       .catch((e) => console.log(e));
   };

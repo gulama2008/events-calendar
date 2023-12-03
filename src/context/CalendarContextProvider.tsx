@@ -5,7 +5,6 @@ import {
   convertDateToString,
   generateDaysArray,
   generateDaysArrayForPreviousMonth,
-  getEventsFromLocalStorage,
   getFirstDayOfMonth,
   getLastDayOfMonth,
 } from "../services/utils";
@@ -60,7 +59,7 @@ const CalendarContextProvider = ({ children }: any) => {
   const [showNewEventModal, setShowNewEventModal] = useState<boolean>(false);
   const [showEventDetailsModal, setShowEventDetailsModal] =
     useState<boolean>(false);
-  const [events, setEvents] = useState<Event[] | undefined>();
+  const [events, setEvents] = useState < Event[]>([]);
   const [currentEventList, setCurrentEventList] = useState<Event[]>();
   const [currentEvent, setCurrentEvent] = useState<Event>();
   const [eventsChange, setEventsChange] = useState<number>(0);

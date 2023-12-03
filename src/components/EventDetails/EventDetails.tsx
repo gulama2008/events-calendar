@@ -55,6 +55,8 @@ const EventDetails = () => {
     }
   }, [showEventDetailsModal]);
   const formSubmit = (data: Event) => {
+    console.log(data);
+    
     EventService.updateEventById(currentEvent.id, data)
       .then((res) => console.log(res))
       .catch((e) => {

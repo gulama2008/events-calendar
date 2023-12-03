@@ -102,24 +102,6 @@ export const getDate = (date: Date, day: number) => {
   return newDate;
 };
 
-export const saveEventsToLocalStorage = (events: Event[]) => {
-  // const newEvents: StringifiedDateEvent[] = events.map((e: Event) => {
-  //   return { date: e.date.toString(), event: e.event };
-  // });
-  // const eventsStr = JSON.stringify(newEvents);
-  // window.localStorage.setItem("events", eventsStr);
-  const eventsStr = JSON.stringify(events);
-  window.localStorage.setItem("events", eventsStr);
-};
-
-export const getEventsFromLocalStorage = (): Event[] => {
-  const eventsStr = window.localStorage.getItem("events");
-  if (eventsStr) {
-    return JSON.parse(eventsStr);
-  }
-  return [];
-};
-
 export const checkIfInDateRange = (
   date: Date,
   startDate: string,
@@ -144,51 +126,65 @@ export const checkIfInDateRange = (
 };
 
 export const convertDateToString = (date: Date): string => {
-  console.log(date);
-
   const pad = (n: any) => `${Math.floor(Math.abs(n))}`.padStart(2, "0");
-  // const str = `"${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}"`
   const str = `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(
     date.getDate()
   )}`;
-  // const str = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
-  // console.log(str);
-  // console.log(typeof str);
-  console.log(str);
-
   return str;
 };
 
-export const countDown = (eventDate: Date,startTime:string) => {
+export const countDown = (eventDate: Date, startTime: string) => {
   const today = new Date();
   const newEventDateStr = `${eventDate} ${startTime}:00`;
-  
   const eventDateMilliseconds = Date.parse(newEventDateStr);
-
-  // if (startTime.substring(startTime.length - 2) == "am") { 
-  //   millisecondsOnEventDate=(parseInt(startTime)+12)*
-  // }
-  // const millisecondsDiff = (eventDate.getTime()) - today.getTime();
   const millisecondsDiff = eventDateMilliseconds - today.getTime();
-  
   const seconds = Math.floor((millisecondsDiff / 1000) % 60);
   const minutes = Math.floor((millisecondsDiff / 1000 / 60) % 60);
   const hours = Math.floor((millisecondsDiff / 1000 / 60 / 60) % 24);
   const days = Math.floor(millisecondsDiff / (1000 * 60 * 60 * 24));
   const formattedTime = [
-    days.toString().length==1?days.toString().padStart(2, "0"):days.toString(),
+    days.toString().length == 1
+      ? days.toString().padStart(2, "0")
+      : days.toString(),
     hours.toString().padStart(2, "0"),
     minutes.toString().padStart(2, "0"),
     seconds.toString().padStart(2, "0"),
-  ]
+  ];
   return formattedTime;
 };
 
-export const getDateAndMonth = (date: string): string => { 
+export const getDateAndMonth = (date: string): string => {
   const dateArr = date.split("-").map((str) => parseInt(str));
   console.log(dateArr[1]);
-  
+
   const dateStr = dateArr[2].toString().padStart(2, "0");
-  const monthStr = month[dateArr[1]-1];
-  return `${dateStr} ${monthStr}`
-}
+  const monthStr = month[dateArr[1] - 1];
+  return `${dateStr} ${monthStr}`;
+};
+
+export const getLocationArray = (events: Event[]): string[] => {
+  if (events.length > 0) {
+    const locationArrWithDuplicates = events.map((event) => event.location);
+    if (locationArrWithDuplicates.length > 0) {
+      const locationArr = locationArrWithDuplicates.filter(
+        (e, index) => locationArrWithDuplicates.indexOf(e) === index
+      );
+      return locationArr;
+    }
+  }
+  return [];
+};
+
+export const getLabelArray = (events: Event[]): string[] => {
+  if (events.length > 0) {
+    const labelArrayArr = events.map((event) => event.label);
+    if (labelArrayArr.length > 0) {
+      const labelArrWithDuplicates = labelArrayArr.flat();
+      const labelArr = labelArrWithDuplicates.filter(
+        (e, index) => labelArrWithDuplicates.indexOf(e) === index
+      );
+      return labelArr;
+    }
+  }
+  return [];
+};
