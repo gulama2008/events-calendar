@@ -1,12 +1,16 @@
-import { useContext } from "react";
 import styles from "./EventForm.module.scss";
-import arrow from "../../assets/arrow.png"
+import arrow from "../../assets/arrow.png";
+import Tags from "../Tags/Tags";
+import tag from "../../assets/tag.png"
+import { useContext } from "react";
+import { CalendarContext } from "../../context/CalendarContextProvider";
 export interface EventFormProps {
   register: any;
   errors: any;
   formSubmit: (data: any) => any;
   handleSubmit: (formSubmit: any) => any;
   handleCancel: (e: any) => any;
+  setValue?: (e1: any, e2: any, e3: any) => any;
 }
 const EventForm = ({
   register,
@@ -14,8 +18,9 @@ const EventForm = ({
   handleSubmit,
   formSubmit,
   handleCancel,
+  setValue,
 }: EventFormProps) => {
-  // const { defaultDateStr}=useContext(CalendarContext)
+  const { currentTags } = useContext(CalendarContext);
   return (
     <form onSubmit={handleSubmit(formSubmit)} className={styles.form}>
       <div>
@@ -93,15 +98,31 @@ const EventForm = ({
         <input type="text" {...register("location")} className={styles.input} />
         {errors.location && <span>This field is required</span>}
       </div>
-      <div className={styles.label_container}>
+      {/* <div className={styles.label_container}>
         <label htmlFor="label" className={styles.label}>
           Label:
         </label>
         <input type="text" {...register("label")} className={styles.input} />
         {errors.label && <span>This field is required</span>}
+      </div> */}
+      <div className={styles.label_container}>
+        <img src={tag} alt="" className={ styles.tag_icon} />
+        <Tags />
       </div>
+      <input type="hidden" value={currentTags} {...register("label")} />
       <div className={styles.btn_container}>
-        <button className={styles.btn_save}>Save</button>
+        <button
+          className={styles.btn_save}
+          onClick={() => {
+            setValue &&
+              setValue("label", currentTags, {
+                shouldValidate: true,
+                shouldDirty: true,
+              });
+          }}
+        >
+          Save
+        </button>
         <button onClick={handleCancel} className={styles.btn_cancel}>
           Cancel
         </button>

@@ -67,9 +67,9 @@
 }
 
 .label_container {
-  margin-left: 20px;
+  display: flex;
+  gap: 10px;
   margin-top: 15px;
-  text-align: left;
   margin-bottom: 20px;
 }
 
@@ -92,4 +92,9 @@
   color: #0d6efd;
   border: 1px solid #0d6efd;
   text-align: center;
+}
+
+.tag_icon{
+  width: 30px;
+  height: 30px;
 }

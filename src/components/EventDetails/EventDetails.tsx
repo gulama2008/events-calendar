@@ -14,12 +14,19 @@ const EventDetails = () => {
     showEventDetailsModal,
     setShowEventDetailsModal,
     currentEvent,
-    
+    setCurrentTags,
   } = useContext(CalendarContext);
   console.log(currentEvent);
+  useEffect(() => {
+    if (currentEvent) { 
+      console.log(currentEvent.label);
+      
+    setCurrentTags(currentEvent.label)
+  } },[currentEvent])
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -63,22 +70,27 @@ const EventDetails = () => {
     setShowEventListContainer(true);
   };
   useEffect(() => {
-    const interval = setInterval(() => {
-      console.log('still running');
-      
-      const countDownTime = countDown(currentEvent.startDate, currentEvent.startTime);
-      setCountDownDays(countDownTime[0]);
-      setCountDownHours(countDownTime[1]);
-      setCountDownMinutes(countDownTime[2]);
-      setCountDownSeconds(countDownTime[3]);
-      if (parseInt(countDownTime[3]) < 0||!showEventDetailsModal) { 
-        clearInterval(interval);
-      }
-    }, 1000);
-    
+    let interval: any;
+    if (currentEvent) {
+      interval = setInterval(() => {
+        console.log("still running");
+
+        const countDownTime = countDown(
+          currentEvent.startDate,
+          currentEvent.startTime
+        );
+        setCountDownDays(countDownTime[0]);
+        setCountDownHours(countDownTime[1]);
+        setCountDownMinutes(countDownTime[2]);
+        setCountDownSeconds(countDownTime[3]);
+        if (parseInt(countDownTime[3]) < 0 || !showEventDetailsModal) {
+          clearInterval(interval);
+        }
+      }, 1000);
+    }
     return () => clearInterval(interval);
-  }, [date,currentEvent,showEventDetailsModal]);
-  
+  }, [date, currentEvent, showEventDetailsModal]);
+
   useEffect(() => {
     if (parseInt(countDownSeconds) >= 0) {
       setShowCountDown(true);
@@ -95,9 +107,17 @@ const EventDetails = () => {
           handleSubmit={handleSubmit}
           formSubmit={formSubmit}
           handleCancel={handleCancel}
+          setValue={setValue}
         />
       </div>
-      {showCountDown ? <Timer countDownDays={ countDownDays} countDownHours={countDownHours} countDownMinutes={countDownMinutes} countDownSeconds={countDownSeconds} />: (
+      {showCountDown ? (
+        <Timer
+          countDownDays={countDownDays}
+          countDownHours={countDownHours}
+          countDownMinutes={countDownMinutes}
+          countDownSeconds={countDownSeconds}
+        />
+      ) : (
         <div>THIS EVENT HAS ENDED</div>
       )}
     </div>

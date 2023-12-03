@@ -23,6 +23,7 @@ const NewEvent = () => {
     eventsChange,
     setEventsChange,
     defaultDateStr,
+    setCurrentTags
   } = useContext(CalendarContext);
   console.log(defaultDateStr);
   const test = "2023-12-10";
@@ -31,6 +32,7 @@ const NewEvent = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -45,6 +47,7 @@ const NewEvent = () => {
     mode: "all",
   });
   const [modalClass, setModalClass] = useState<string>("");
+  useEffect(() => { setCurrentTags([])},[])
   useEffect(() => {
     if (showNewEventModal) {
       setModalClass(styles.show_modal);
@@ -54,6 +57,8 @@ const NewEvent = () => {
   }, [showNewEventModal]);
 
   const formSubmit = (data: Event) => {
+    console.log(data);
+    
     EventService.createEvent(data)
       .then(() => {
         setShowNewEventModal(false);
@@ -77,6 +82,7 @@ const NewEvent = () => {
         handleSubmit={handleSubmit}
         formSubmit={formSubmit}
         handleCancel={handleCancel}
+        setValue={ setValue}
       />
     </div>
   );

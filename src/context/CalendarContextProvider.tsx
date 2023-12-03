@@ -21,7 +21,7 @@ export interface EventDetails {
   endDate: string;
   endTime: string;
   location: string;
-  label: string;
+  label: string[];
 }
 export interface Event {
   id: number;
@@ -33,7 +33,7 @@ export interface Event {
   endDate: string;
   endTime: string;
   location: string;
-  label: string;
+  label: string[];
 }
 const CalendarContextProvider = ({ children }: any) => {
   const currentDate = new Date();
@@ -65,6 +65,7 @@ const CalendarContextProvider = ({ children }: any) => {
   const [currentEvent, setCurrentEvent] = useState<Event>();
   const [eventsChange, setEventsChange] = useState<number>(0);
   const [defaultDateStr, setDefaultDateStr] = useState<string>("");
+  const [currentTags, setCurrentTags] = useState<string[]>([]);
   // const [showCountDown, setShowCountDown] = useState<boolean>(true);
   const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
@@ -130,6 +131,8 @@ const CalendarContextProvider = ({ children }: any) => {
         setEventsChange,
         defaultDateStr,
         setDefaultDateStr,
+        currentTags,
+        setCurrentTags,
         // showCountDown,
         // setShowCountDown,
       }}

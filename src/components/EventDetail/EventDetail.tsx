@@ -12,10 +12,6 @@ export interface EventDetailProps {
 
 const EventDetail = ({ e, index }: EventDetailProps) => {
   const {
-    events,
-    setEvents,
-    currentEventList,
-    setCurrentEventList,
     setShowEventDetailsModal,
     setShowEventListContainer,
     setCurrentEvent,
