@@ -48,7 +48,7 @@ const Day = ({ day }: DayProps) => {
         } else {
           filteredEventList = eventsForCurrentDate.filter(
             (event: Event) =>
-              event.label.includes(filters.label) &&
+              event.location == filters.location &&
               event.label.includes(filters.label)
           );
         }
