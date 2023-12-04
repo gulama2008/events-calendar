@@ -4,6 +4,8 @@ import styles from "./NewEvent.module.scss";
 import { useForm } from "react-hook-form";
 import EventForm from "../EventForm/EventForm";
 import { EventService } from "../../services/events-service";
+import { saveSchema } from "../../validation/validation";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const NewEvent = () => {
   const {
@@ -20,8 +22,10 @@ const NewEvent = () => {
     register,
     handleSubmit,
     setValue,
+    reset,
     formState: { errors },
   } = useForm({
+    resolver: zodResolver(saveSchema),
     defaultValues: {
       eventName: "",
       startDate: "",
@@ -63,6 +67,7 @@ const NewEvent = () => {
 
   const handleCancel = (e: any) => {
     e.preventDefault();
+    reset();
     setShowEventListContainer(true);
     setShowNewEventModal(false);
   };
@@ -83,3 +88,4 @@ const NewEvent = () => {
 };
 
 export default NewEvent;
+

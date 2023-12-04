@@ -34,7 +34,9 @@ const EventForm = ({
           {...register("eventName")}
           className={styles.name}
         />
-        {errors.eventName && <span>This field is required</span>}
+        {errors.eventName && (
+          <div className={styles.error}>This field is required</div>
+        )}
       </div>
       <div className={styles.date_time_container}>
         <div className={styles.date_time}>
@@ -50,7 +52,9 @@ const EventForm = ({
               // defaultValue={defaultDateStr}
               className={styles.date_picker}
             />
-            {errors.startDate && <span>This field is required</span>}
+            {errors.startDate && (
+              <div className={styles.error}>This field is required</div>
+            )}
           </div>
           <div className={styles.time}>
             <label htmlFor="startTime" className={styles.label}>
@@ -61,7 +65,9 @@ const EventForm = ({
               {...register("startTime")}
               className={styles.time_input}
             />
-            {errors.startDate && <span>This field is required</span>}
+            {errors.startTime && (
+              <div className={styles.error}>This field is required</div>
+            )}
           </div>
         </div>
         <div>
@@ -78,7 +84,9 @@ const EventForm = ({
               // value={dateValue}
               className={styles.date_picker}
             />
-            {errors.endDate && <span>This field is required</span>}
+            {errors.endDate && (
+              <div className={styles.error}>This field is required</div>
+            )}
           </div>
           <div className={styles.time}>
             <label htmlFor="endTime" className={styles.label}>
@@ -89,7 +97,9 @@ const EventForm = ({
               {...register("endTime")}
               className={styles.time_input}
             />
-            {errors.startDate && <span>This field is required</span>}
+            {errors.endTime && (
+              <div className={styles.error}>This field is required</div>
+            )}
           </div>
         </div>
       </div>
@@ -99,7 +109,7 @@ const EventForm = ({
           Location:
         </label>
         <input type="text" {...register("location")} className={styles.input} />
-        {errors.location && <span>This field is required</span>}
+        {/* {errors.location && <span>This field is required</span>} */}
       </div>
       {/* <div className={styles.label_container}>
         <label htmlFor="label" className={styles.label}>
