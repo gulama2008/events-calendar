@@ -1,7 +1,7 @@
 import styles from "./EventForm.module.scss";
 import arrow from "../../assets/arrow.png";
 import Tags from "../Tags/Tags";
-import tag from "../../assets/tag.png"
+import tag from "../../assets/tag.png";
 import { useContext } from "react";
 import { CalendarContext } from "../../context/CalendarContextProvider";
 export interface EventFormProps {
@@ -21,7 +21,7 @@ const EventForm = ({
   handleCancel,
   setValue,
 }: EventFormProps) => {
-  const { currentTags } = useContext(CalendarContext);
+  const { currentTags, date } = useContext(CalendarContext);
   return (
     <form onSubmit={handleSubmit(formSubmit)} className={styles.form}>
       <div>
@@ -35,7 +35,11 @@ const EventForm = ({
           className={styles.name}
         />
         {errors.eventName && (
-          <div className={styles.error}>This field is required</div>
+          <div className={styles.error}>
+            {errors.endTime && (
+              <div className={styles.error}>{errors.eventName.message}</div>
+            )}
+          </div>
         )}
       </div>
       <div className={styles.date_time_container}>
@@ -51,9 +55,10 @@ const EventForm = ({
               // className={styles.input}
               // defaultValue={defaultDateStr}
               className={styles.date_picker}
+              min={date}
             />
             {errors.startDate && (
-              <div className={styles.error}>This field is required</div>
+              <div className={styles.error}>{errors.startDate.message}</div>
             )}
           </div>
           <div className={styles.time}>
@@ -66,7 +71,7 @@ const EventForm = ({
               className={styles.time_input}
             />
             {errors.startTime && (
-              <div className={styles.error}>This field is required</div>
+              <div className={styles.error}>{errors.startTime.message}</div>
             )}
           </div>
         </div>
@@ -85,7 +90,7 @@ const EventForm = ({
               className={styles.date_picker}
             />
             {errors.endDate && (
-              <div className={styles.error}>This field is required</div>
+              <div className={styles.error}>{errors.endDate.message}</div>
             )}
           </div>
           <div className={styles.time}>
@@ -98,7 +103,7 @@ const EventForm = ({
               className={styles.time_input}
             />
             {errors.endTime && (
-              <div className={styles.error}>This field is required</div>
+              <div className={styles.error}>{errors.endTime.message}</div>
             )}
           </div>
         </div>
@@ -109,15 +114,15 @@ const EventForm = ({
           Location:
         </label>
         <input type="text" {...register("location")} className={styles.input} />
-        {/* {errors.location && <span>This field is required</span>} */}
+        {errors.location && (
+          <div>
+            {errors.endTime && (
+              <div className={styles.error}>{errors.location.message}</div>
+            )}
+          </div>
+        )}
       </div>
-      {/* <div className={styles.label_container}>
-        <label htmlFor="label" className={styles.label}>
-          Label:
-        </label>
-        <input type="text" {...register("label")} className={styles.input} />
-        {errors.label && <span>This field is required</span>}
-      </div> */}
+
       <div className={styles.label_container}>
         <img src={tag} alt="" className={styles.tag_icon} />
         <Tags />

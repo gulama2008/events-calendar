@@ -7,7 +7,7 @@ import { EventService } from "../../services/events-service";
 import { countDown } from "../../services/utils";
 import Timer from "../Timer/Timer";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { saveSchema } from "../../validation/validation";
+import { eventDetailsSchema } from "../../validation/validation";
 
 const EventDetails = () => {
   const {
@@ -31,7 +31,7 @@ const EventDetails = () => {
     setValue,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(saveSchema),
+    resolver: zodResolver(eventDetailsSchema),
     defaultValues: {
       eventName: "",
       startDate: "",
