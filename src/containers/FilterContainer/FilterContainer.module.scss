@@ -1,22 +1,27 @@
-.container{
-    display: flex;
-    gap: 10px;
-    margin-right: 15px;
+.container {
+  display: flex;
+  gap: 10px;
+  margin-right: 15px;
 }
 
-.btn{
-    background-color: #0d6efd;
-    border: none;
-    color: white;
-    height: 40px;
-    
+.btn {
+  background-color: #1876d2;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  transition-duration: 0.3s;
+  height: 40px;
 }
 
-.filter_container{
-    display: flex;
-    gap: 5px;
+.btn:hover {
+  background-color: #1665c0;
 }
 
-.text{
-    line-height: 40px;
+.filter_container {
+  display: flex;
+  gap: 5px;
+}
+
+.text {
+  line-height: 40px;
 }
