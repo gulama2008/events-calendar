@@ -15,6 +15,8 @@ const EventDetails = () => {
     setShowEventDetailsModal,
     currentEvent,
     setCurrentTags,
+    setEventsChange,
+    eventsChange,
   } = useContext(CalendarContext);
   console.log(currentEvent);
   useEffect(() => {
@@ -58,7 +60,7 @@ const EventDetails = () => {
     console.log(data);
     
     EventService.updateEventById(currentEvent.id, data)
-      .then((res) => console.log(res))
+      .then(() => setEventsChange(eventsChange + 1))
       .catch((e) => {
         console.log(e);
       });
