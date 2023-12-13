@@ -21,6 +21,7 @@ const NewEvent = () => {
     handleSubmit,
     setValue,
     formState: { errors },
+    reset,
   } = useForm({
     defaultValues: {
       eventName: "",
@@ -56,6 +57,7 @@ const NewEvent = () => {
         setShowNewEventModal(false);
         setEventsChange(eventsChange + 1);
         setShowEventListContainer(true);
+        reset();
         
       })
       .catch((e) => console.log(e));
@@ -63,6 +65,7 @@ const NewEvent = () => {
 
   const handleCancel = (e: any) => {
     e.preventDefault();
+    reset();
     setShowEventListContainer(true);
     setShowNewEventModal(false);
   };

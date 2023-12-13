@@ -24,6 +24,12 @@ const Day = ({ day }: DayProps) => {
   // const [currentDate, setCurrentDate] = useState();
   const [eventsForCurrentDate, setEventForCurrentDate] = useState<any>();
   let containerClasses = styles.container;
+  const today = new Date();
+  if (date.getMonth() == today.getMonth() && day == today.getDate()) {
+    console.log("testtesttest");
+
+    containerClasses += ` ${styles.today}`;
+  }
   if (getIndexOfWeek(date, day) === 0 || getIndexOfWeek(date, day) === 6) {
     containerClasses += ` ${styles.weekend}`;
   }

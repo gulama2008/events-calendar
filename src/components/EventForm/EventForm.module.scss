@@ -80,18 +80,36 @@
 }
 
 .btn_save {
-  background-color: #0d6efd;
+  background-color: #1876d2;
   color: white;
   border: none;
-  margin-right: 50px;
+  // margin-right: 50px;
+  border-radius: 4px;
+  margin-right: 40px;
   width: 90px;
+  transition-duration: 0.3s;
+}
+
+.btn_save:hover{
+  background-color: #1665c0;
 }
 
 .btn_cancel {
   width: 88px;
-  color: #0d6efd;
-  border: 1px solid #0d6efd;
+  // color: #0d6efd;
+  // border: 1px solid #0d6efd;
   text-align: center;
+  color:#1876d2;
+  border: 1px solid #93bae9;
+  border-radius: 4px;
+  transition-duration: 0.3s;
+  background-color: white;
+}
+
+.btn_cancel:hover{
+  background-color:#f6fafd;
+  color: #1a77d2;
+  border: 1px solid #3487d7;
 }
 
 .tag_icon{
