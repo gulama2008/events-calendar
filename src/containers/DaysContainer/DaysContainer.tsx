@@ -8,8 +8,6 @@ import EventModal from "../../components/EventModal/EventModal";
 
 const DaysContainer = () => {
   const {
-    date,
-    events,
     daysArray,
     daysArrayForPreviousMonth,
     daysArrayForNextMonth,

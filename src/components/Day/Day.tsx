@@ -18,7 +18,6 @@ const Day = ({ day }: DayProps) => {
     events,
     setCurrentEventList,
     filters,
-    setFilters,
   } = useContext(CalendarContext);
   // const currentDate = getDate(date, day);
   // const [currentDate, setCurrentDate] = useState();
